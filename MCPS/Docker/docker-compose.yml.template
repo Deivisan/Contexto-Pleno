@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+  context7:
+    image: mcp/context7:latest
+    container_name: mcp_context7
+    ports:
+      - "8080:8080"
+    volumes:
+      - context7-data:/data
+    restart: unless-stopped
+
+  tavily:
+    image: mcp/tavily:latest
+    container_name: mcp_tavily
+    ports:
+      - "3000:3000"
+    volumes:
+      - tavily-data:/data
+    restart: unless-stopped
+
+  server-memory:
+    image: mcp/server-memory:latest
+    container_name: mcp_server_memory
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+
+  fetch:
+    image: mcp/fetch:latest
+    container_name: mcp_fetch
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+
+  dockerhub:
+    image: mcp/dockerhub:latest
+    container_name: mcp_dockerhub
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+networks:
+  mcps_net:
+    driver: bridge
+
+volumes:
+  context7-data: {}
+  tavily-data: {}
+
+# Notes:
+# - This is a template; review the image names, tags and environment variables required for each MCP.
+# - Add environment variables, volumes, and any network constraints as needed.
+# - To use: `docker-compose -f docker-compose.yml.template up -d` (copy the file to docker-compose.yml when ready).

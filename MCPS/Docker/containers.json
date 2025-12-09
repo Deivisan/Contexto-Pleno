@@ -1,0 +1,114 @@
+[
+  {
+    "ID": "6c2cda5f1714",
+    "Image": "mcp/tavily",
+    "Name": "mcp_tavily_http",
+    "Ports": "",
+    "Status": "Exited (0) About an hour ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "e7320efef76c",
+    "Image": "mcp/fetch",
+    "Name": "mcp_fetch_http",
+    "Ports": "",
+    "Status": "Exited (0) About an hour ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "6caffdea9235",
+    "Image": "docker/mcp-gateway:latest",
+    "Name": "mcp_gateway",
+    "Ports": "",
+    "Status": "Restarting (1) 35 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "40c2c5a516b4",
+    "Image": "mcp/filesystem",
+    "Name": "mcp_filesystem",
+    "Ports": "",
+    "Status": "Restarting (0) 27 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "58508aa11526",
+    "Image": "mcp/dockerhub",
+    "Name": "mcp_dockerhub",
+    "Ports": "",
+    "Status": "Restarting (0) 42 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "14ee0a89534b",
+    "Image": "mcp/tavily",
+    "Name": "mcp_tavily",
+    "Ports": "",
+    "Status": "Exited (0) About an hour ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "14fcc62bf37d",
+    "Image": "mcp/desktop-commander",
+    "Name": "mcp_desktop_commander",
+    "Ports": "",
+    "Status": "Restarting (0) 36 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "815ff63bc3db",
+    "Image": "mcp/context7",
+    "Name": "mcp_context7",
+    "Ports": "8080/tcp",
+    "Status": "Up About an hour (healthy)",
+    "HostBindings": []
+  },
+  {
+    "ID": "1b56b07fe9cb",
+    "Image": "mcp/firecrawl",
+    "Name": "mcp_firecrawl",
+    "Ports": "",
+    "Status": "Restarting (0) 14 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "a02330cb1a01",
+    "Image": "mcp/fetch",
+    "Name": "mcp_fetch",
+    "Ports": "",
+    "Status": "Exited (0) About an hour ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "eb17e7882127",
+    "Image": "mcp/dockerhub",
+    "Name": "adoring_wiles",
+    "Ports": "",
+    "Status": "Up 2 hours",
+    "HostBindings": []
+  },
+  {
+    "ID": "3c20ec4ad606",
+    "Image": "mcp/dockerhub:latest",
+    "Name": "confident_villani",
+    "Ports": "",
+    "Status": "Up 2 hours",
+    "HostBindings": []
+  },
+  {
+    "ID": "e27298ea7a47",
+    "Image": "mcp/agent:local",
+    "Name": "agent-core-local",
+    "Ports": "",
+    "Status": "Up 4 hours",
+    "HostBindings": []
+  },
+  {
+    "ID": "29e2716d7d8d",
+    "Image": "44e708dfe897",
+    "Name": "local-agent",
+    "Ports": "",
+    "Status": "Up 4 hours",
+    "HostBindings": []
+  }
+]

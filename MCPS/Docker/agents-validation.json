@@ -1,0 +1,34 @@
+[
+  {
+    "Name": "qwen",
+    "Cmd": "qwen",
+    "Installed": false,
+    "VersionOutput": null,
+    "ExitCode": null,
+    "Error": "Command not found in PATH"
+  },
+  {
+    "Name": "gemini",
+    "Cmd": "gemini",
+    "Installed": false,
+    "VersionOutput": null,
+    "ExitCode": null,
+    "Error": "Command not found in PATH"
+  },
+  {
+    "Name": "kilocode",
+    "Cmd": "kilocode",
+    "Installed": false,
+    "VersionOutput": null,
+    "ExitCode": null,
+    "Error": "Command not found in PATH"
+  },
+  {
+    "Name": "copilot",
+    "Cmd": "copilot",
+    "Installed": true,
+    "VersionOutput": null,
+    "ExitCode": null,
+    "Error": "This command cannot be run due to the error: %1 não é um aplicativo Win32 válido."
+  }
+]
