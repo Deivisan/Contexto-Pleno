@@ -187,7 +187,27 @@
 
 ---
 
-## ✅ PROGRESSO ATUAL (2025-12-09)
+## ✅ PROGRESSO ATUAL (2025-12-09 22:00 BRT)
+
+### 🎯 STATUS: MCPs Docker Funcionais!
+
+**Configuração aplicada ao Kiro:** `~/.kiro/settings/mcp.json`
+
+| MCP | Tipo | Status | Notas |
+|-----|------|--------|-------|
+| context7 | HTTP/SSE | ✅ Ativo | Container rodando porta 8080 |
+| tavily | Docker STDIO | ✅ Ativo | 4 tools (search, extract, crawl, map) |
+| memory | Docker STDIO | ✅ Ativo | 9 tools, volume persistente |
+| fetch | Docker STDIO | ✅ Ativo | HTTP requests |
+| filesystem | Docker STDIO | ✅ Ativo | C:/Projetos montado |
+| playwright | Docker STDIO | ✅ Ativo | Browser automation |
+| sequentialthinking | Docker STDIO | ⏸️ Desabilitado | Disponível se necessário |
+| git | Docker STDIO | ⏸️ Desabilitado | Precisa path específico |
+| github | Docker STDIO | ⏸️ Desabilitado | Disponível se necessário |
+
+---
+
+## 📋 PROGRESSO ANTERIOR (2025-12-09)
 
 ### Arquivos Criados
 | Arquivo | Descrição |
@@ -255,26 +275,23 @@ A configuração atual do Kiro usa npx/uvx. Funciona, mas cria pastas temporári
 
 ---
 
-## 📋 PRÓXIMOS PASSOS IMEDIATOS
+## 📋 PRÓXIMOS PASSOS
 
-1. **Testar Docker MCP Gateway**
+1. **Configurar auto-start do Context7 no Windows**
    ```powershell
-   docker mcp gateway run --transport sse
+   # Adicionar ao Task Scheduler para rodar no login:
+   pwsh C:\Projetos\Contexto-Pleno\scripts\start-mcp-context7.ps1
    ```
 
-2. **Configurar auto-start no Windows**
-   - Criar tarefa no Task Scheduler
-   - Executar `start-mcps.ps1` no login
+2. **Sincronizar configs para outros agentes**
+   - Gemini CLI: `~/.gemini/settings/mcp.json`
+   - Claude Code: `~/.claude/settings/mcp.json`
+   - Copilot: Usar Docker MCP Gateway
 
-3. **Validar conectividade de cada MCP**
-   ```powershell
-   pwsh ./scripts/start-mcps.ps1 -Action test
-   ```
-
-4. **Sincronizar configs para todos os agentes**
-   ```powershell
-   pwsh ./scripts/sync-mcp-configs.ps1
-   ```
+3. **Testar MCPs desabilitados se necessário**
+   - `sequentialthinking`: Raciocínio complexo
+   - `git`: Operações Git (precisa path específico)
+   - `github`: GitHub API oficial
 
 ---
 
