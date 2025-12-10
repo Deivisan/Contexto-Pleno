@@ -1,0 +1,165 @@
+# ============================================
+# 🐳 MCP Universal Docker Compose
+# Gerado: 2025-12-09
+# Autor: Kiro (DevSan AI)
+# Objetivo: MCPs sempre ativos para todos os agentes
+# ============================================
+
+services:
+  # === CONTEXT7 - Documentação de bibliotecas ===
+  context7:
+    image: mcp/context7:latest
+    container_name: mcp-context7
+    ports:
+      - "8080:8080"
+    environment:
+      - CONTEXT7_API_KEY=${CONTEXT7_API_KEY}
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=8080
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - mcp-network
+
+  # === TAVILY - Busca web avançada ===
+  tavily:
+    image: mcp/tavily:latest
+    container_name: mcp-tavily
+    ports:
+      - "3000:3000"
+    environment:
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - mcp-network
+
+  # === MEMORY - Memória persistente ===
+  memory:
+    image: mcp/memory:latest
+    container_name: mcp-memory
+    ports:
+      - "4000:4000"
+    environment:
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=4000
+      - MEMORY_FILE_PATH=/data/memory.json
+    volumes:
+      - memory-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - mcp-network
+
+  # === GIT - Operações Git ===
+  git:
+    image: mcp/git:latest
+    container_name: mcp-git
+    ports:
+      - "5000:5000"
+    environment:
+      - GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_PERSONAL_ACCESS_TOKEN}
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=5000
+    volumes:
+      - /c/Projetos:/workspace:ro
+      - /c/Users/Deivi/.ssh:/root/.ssh:ro
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # === FETCH - HTTP requests ===
+  fetch:
+    image: mcp/fetch:latest
+    container_name: mcp-fetch
+    ports:
+      - "9000:9000"
+    environment:
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=9000
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # === FILESYSTEM - Acesso ao sistema de arquivos ===
+  filesystem:
+    image: mcp/filesystem:latest
+    container_name: mcp-filesystem
+    ports:
+      - "6000:6000"
+    environment:
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=6000
+    volumes:
+      - /c:/host/c:ro
+      - /d:/host/d:ro
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # === PLAYWRIGHT - Automação de browser ===
+  playwright:
+    image: mcp/playwright:latest
+    container_name: mcp-playwright
+    ports:
+      - "7000:7000"
+    environment:
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=7000
+      - PLAYWRIGHT_BROWSERS=chromium
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # === GITHUB MCP - GitHub API ===
+  github:
+    image: ghcr.io/github/github-mcp-server:latest
+    container_name: mcp-github
+    ports:
+      - "5001:5001"
+    environment:
+      - GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_PERSONAL_ACCESS_TOKEN}
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=5001
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+  # === DESKTOP COMMANDER - Controle do desktop ===
+  desktop-commander:
+    image: mcp/desktop-commander:latest
+    container_name: mcp-desktop-commander
+    ports:
+      - "8000:8000"
+    environment:
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
+      - MCP_PORT=8000
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
+    name: mcp-universal-network
+
+volumes:
+  memory-data:
+    name: mcp-memory-data
