@@ -1,0 +1,179 @@
+# =============================================================
+# 🐳 MCP Universal Docker Compose [PROPOSTA GEMINI OFFLINE-FIRST]
+# Autor: Gemini (Nano Banana)
+# Data: 2025-12-09
+# Objetivo: Adicionar um cérebro local (Ollama) e um orquestrador (Agent-Executor)
+# para uma arquitetura 100% autônoma, gratuita e privada.
+# =============================================================
+
+version: '3.9'
+
+networks:
+  mcp_network:
+    driver: bridge
+    name: mcp-universal-network
+
+volumes:
+  memory-data:
+    name: mcp-memory-data
+  ollama-data:
+    name: mcp-ollama-data
+
+services:
+  # =============================================================
+  # === 🧠 CÉREBRO E ORQUESTRADOR (NOVAS PROPOSTAS) ===
+  # =============================================================
+
+  # --- OLLAMA: Servidor de Modelos de Linguagem Locais ---
+  ollama:
+    image: ollama/ollama:latest
+    container_name: mcp-ollama-server
+    restart: unless-stopped
+    pull_policy: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - mcp_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "ollama", "ps"]
+      interval: 45s
+      timeout: 20s
+      retries: 3
+      start_period: 20s
+
+  # --- AGENT-EXECUTOR: Orquestrador de MCPs (Requer implementação) ---
+  agent-executor:
+    # A imagem deve ser construída a partir de um Dockerfile no diretório do executor.
+    build:
+      context: ./agent-executor 
+      dockerfile: Dockerfile
+    image: mcp/agent-executor:latest
+    container_name: mcp-agent-executor
+    restart: unless-stopped
+    ports:
+      - "10000:10000"
+    networks:
+      - mcp_network
+    environment:
+      - OLLAMA_HOST=http://ollama:11434 # Comunicação interna via nome do serviço
+      # Mapeie as URLs dos outros MCPs para que o executor saiba a quem chamar
+      - MCP_TAVILY_URL=http://tavily:3000
+      - MCP_FILESYSTEM_URL=http://filesystem:6000
+    depends_on:
+      - ollama
+      - tavily
+      - filesystem
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # =============================================================
+  # === 🛠️ FERRAMENTAS MCP (Serviços existentes, aprimorados) ===
+  # =============================================================
+
+  context7:
+    image: mcp/context7:latest
+    container_name: mcp-context7
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - mcp_network
+    # ... (demais configurações como no arquivo original)
+
+  tavily:
+    image: mcp/tavily:latest
+    container_name: mcp-tavily
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - mcp_network
+    # ...
+
+  memory:
+    image: mcp/memory:latest
+    container_name: mcp-memory
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    volumes:
+      - memory-data:/data
+    networks:
+      - mcp_network
+    # ...
+
+  git:
+    image: mcp/git:latest
+    container_name: mcp-git
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - /c/Projetos:/workspace:ro
+    networks:
+      - mcp_network
+    # ...
+
+  fetch:
+    image: mcp/fetch:latest
+    container_name: mcp-fetch
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    networks:
+      - mcp_network
+    # ...
+
+  filesystem:
+    image: mcp/filesystem:latest
+    container_name: mcp-filesystem
+    restart: unless-stopped
+    ports:
+      - "6000:6000"
+    volumes:
+      - /c:/host/c:ro
+    networks:
+      - mcp_network
+    # ...
+
+  playwright:
+    image: mcp/playwright:latest
+    container_name: mcp-playwright
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+    networks:
+      - mcp_network
+    # ...
+
+  github:
+    image: ghcr.io/github/github-mcp-server:latest
+    container_name: mcp-github
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    networks:
+      - mcp_network
+    # ...
+
+  desktop-commander:
+    image: mcp/desktop-commander:latest
+    container_name: mcp-desktop-commander
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - mcp_network
+    # ...
