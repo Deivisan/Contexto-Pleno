@@ -1,0 +1,97 @@
+version: '3.9'
+services:
+  context7:
+    image: mcp/context7:latest
+    container_name: DevSan-MCP-context7
+    ports:
+      - "8080:8080"
+    volumes:
+      - context7-data:/data
+    restart: unless-stopped
+
+  tavily:
+    image: mcp/tavily:latest
+    container_name: DevSan-MCP-tavily
+    ports:
+      - "3000:3000"
+    volumes:
+      - tavily-data:/data
+    restart: unless-stopped
+
+  fetch:
+    image: mcp/fetch:latest
+    container_name: DevSan-MCP-fetch
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+
+  dockerhub:
+    image: mcp/dockerhub:latest
+    container_name: DevSan-MCP-dockerhub
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  filesystem:
+    image: mcp/filesystem:latest
+    container_name: DevSan-MCP-filesystem
+    ports:
+      - "7000:7000"
+    command: ["/", "/tmp"]
+    volumes:
+      - /:/host
+    restart: unless-stopped
+
+  firecrawl:
+    image: mcp/firecrawl:latest
+    container_name: DevSan-MCP-firecrawl
+    ports:
+      - "6000:6000"
+    environment:
+      - FIRECRAWL_API_KEY=fc-d3156cdf9a444ce380f7c87b6090fb30
+    restart: unless-stopped
+
+  youtube-transcription:
+    image: mcp/youtube-transcript:latest
+    container_name: DevSan-MCP-youtube-transcription
+    ports:
+      - "7001:7001"
+    restart: unless-stopped
+
+  desktop-commander:
+    image: mcp/desktop-commander:latest
+    container_name: DevSan-MCP-desktop-commander
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  agent:
+    image: mcp/agent:local
+    container_name: DevSan-MCP-agent
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+
+  gateway:
+    image: docker/mcp-gateway:latest
+    container_name: DevSan-MCP-gateway
+    ports:
+      - "9090:9090"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    restart: unless-stopped
+
+networks:
+  mcps_net:
+    driver: bridge
+
+volumes:
+  context7-data: {}
+  tavily-data: {}
+
+# Notes:
+# - This is a template; review the image names, tags and environment variables required for each MCP.
+# - Add environment variables, volumes, and any network constraints as needed.
+# - To use: `docker-compose -f docker-compose.yml.template up -d` (copy the file to docker-compose.yml when ready).

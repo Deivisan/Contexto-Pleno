@@ -1,114 +1,112 @@
 [
   {
-    "ID": "6c2cda5f1714",
-    "Image": "mcp/tavily",
-    "Name": "mcp_tavily_http",
+    "ID": "7e88509d3c04",
+    "Image": "mcp/filesystem:latest",
+    "Name": "DevSan-MCP-filesystem",
     "Ports": "",
-    "Status": "Exited (0) About an hour ago",
+    "Status": "Restarting (0) 16 seconds ago",
     "HostBindings": []
   },
   {
-    "ID": "e7320efef76c",
-    "Image": "mcp/fetch",
-    "Name": "mcp_fetch_http",
+    "ID": "df24ed2d78e2",
+    "Image": "mcp/fetch:latest",
+    "Name": "DevSan-MCP-fetch",
     "Ports": "",
-    "Status": "Exited (0) About an hour ago",
+    "Status": "Restarting (0) 39 seconds ago",
     "HostBindings": []
   },
   {
-    "ID": "6caffdea9235",
-    "Image": "docker/mcp-gateway:latest",
-    "Name": "mcp_gateway",
-    "Ports": "",
-    "Status": "Restarting (1) 35 seconds ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "40c2c5a516b4",
-    "Image": "mcp/filesystem",
-    "Name": "mcp_filesystem",
-    "Ports": "",
-    "Status": "Restarting (0) 27 seconds ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "58508aa11526",
-    "Image": "mcp/dockerhub",
-    "Name": "mcp_dockerhub",
-    "Ports": "",
-    "Status": "Restarting (0) 42 seconds ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "14ee0a89534b",
-    "Image": "mcp/tavily",
-    "Name": "mcp_tavily",
-    "Ports": "",
-    "Status": "Exited (0) About an hour ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "14fcc62bf37d",
-    "Image": "mcp/desktop-commander",
-    "Name": "mcp_desktop_commander",
-    "Ports": "",
-    "Status": "Restarting (0) 36 seconds ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "815ff63bc3db",
-    "Image": "mcp/context7",
-    "Name": "mcp_context7",
-    "Ports": "8080/tcp",
-    "Status": "Up About an hour (healthy)",
-    "HostBindings": []
-  },
-  {
-    "ID": "1b56b07fe9cb",
-    "Image": "mcp/firecrawl",
-    "Name": "mcp_firecrawl",
-    "Ports": "",
-    "Status": "Restarting (0) 14 seconds ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "a02330cb1a01",
-    "Image": "mcp/fetch",
-    "Name": "mcp_fetch",
-    "Ports": "",
-    "Status": "Exited (0) About an hour ago",
-    "HostBindings": []
-  },
-  {
-    "ID": "eb17e7882127",
-    "Image": "mcp/dockerhub",
-    "Name": "adoring_wiles",
-    "Ports": "",
-    "Status": "Up 2 hours",
-    "HostBindings": []
-  },
-  {
-    "ID": "3c20ec4ad606",
+    "ID": "14b96b64be4f",
     "Image": "mcp/dockerhub:latest",
-    "Name": "confident_villani",
+    "Name": "DevSan-MCP-dockerhub",
     "Ports": "",
-    "Status": "Up 2 hours",
+    "Status": "Restarting (0) 56 seconds ago",
     "HostBindings": []
   },
   {
-    "ID": "e27298ea7a47",
+    "ID": "957b4d668894",
+    "Image": "mcp/desktop-commander:latest",
+    "Name": "DevSan-MCP-desktop-commander",
+    "Ports": "",
+    "Status": "Restarting (0) 11 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "4cbc0b1cdce3",
+    "Image": "mcp/firecrawl:latest",
+    "Name": "DevSan-MCP-firecrawl",
+    "Ports": "",
+    "Status": "Restarting (0) 37 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "2bef99e0fd5c",
+    "Image": "mcp/tavily:latest",
+    "Name": "DevSan-MCP-tavily",
+    "Ports": "",
+    "Status": "Restarting (0) Less than a second ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "83e63465d759",
+    "Image": "mcp/context7:latest",
+    "Name": "DevSan-MCP-context7",
+    "Ports": "0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp",
+    "Status": "Up 9 minutes",
+    "HostBindings": [
+      {
+        "ContainerPort": "8080/tcp",
+        "HostIP": "0.0.0.0",
+        "HostPort": "8080"
+      },
+      {
+        "ContainerPort": "8080/tcp",
+        "HostIP": "::",
+        "HostPort": "8080"
+      }
+    ]
+  },
+  {
+    "ID": "22ac469d8548",
     "Image": "mcp/agent:local",
-    "Name": "agent-core-local",
+    "Name": "DevSan-MCP-agent",
+    "Ports": "0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp",
+    "Status": "Up 9 minutes",
+    "HostBindings": [
+      {
+        "ContainerPort": "4000/tcp",
+        "HostIP": "0.0.0.0",
+        "HostPort": "4000"
+      },
+      {
+        "ContainerPort": "4000/tcp",
+        "HostIP": "::",
+        "HostPort": "4000"
+      }
+    ]
+  },
+  {
+    "ID": "9c72db6d80cd",
+    "Image": "mcp/youtube-transcript:latest",
+    "Name": "DevSan-MCP-youtube-transcription",
     "Ports": "",
-    "Status": "Up 4 hours",
+    "Status": "Restarting (0) 25 seconds ago",
     "HostBindings": []
   },
   {
-    "ID": "29e2716d7d8d",
-    "Image": "44e708dfe897",
-    "Name": "local-agent",
+    "ID": "0a81ed250f37",
+    "Image": "docker/mcp-gateway:latest",
+    "Name": "DevSan-MCP-gateway",
     "Ports": "",
-    "Status": "Up 4 hours",
+    "Status": "Restarting (1) 28 seconds ago",
+    "HostBindings": []
+  },
+  {
+    "ID": "c8ae9e5a5459",
+    "Image": "f3a395136457",
+    "Name": "",
+    "Ports": "",
+    "Status": "Dead",
     "HostBindings": []
   }
 ]

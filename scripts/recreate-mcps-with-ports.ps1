@@ -53,7 +53,7 @@ foreach ($c in $containers) {
     if ($c.Ports -and $c.Ports -match '(\d+)\/tcp') { $containerPort = [int]($Matches[1]) }
     if (-not $containerPort) { $containerPort = $preferHostPort }
 
-    $cmd = "docker rename $name ${name}_backup || true; docker run -d --name $name -p $preferHostPort:`$containerPort $image"
+    $cmd = "docker rename $name ${name}_backup || true; docker run -d --name $name -p ${preferHostPort}:${containerPort} $image"
 
     Write-Info "Proposta para $name: mapear host $preferHostPort -> container $containerPort na imagem $image"
     if ($dryRun) { Write-Host "[DRYRUN] $cmd" } else {
