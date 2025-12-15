@@ -180,3 +180,85 @@ MIT — sinta-se livre para adaptar e replicar.
 
 ---
 Arquivo gerado automaticamente por uma tarefa de script.
+
+---
+
+## 🧠 Orquestração Multi-Agente (Novo!)
+
+### Sistema Completo Implementado
+
+Este repositório agora inclui **orquestração inteligente de múltiplos agentes CLI** usando metodologia YOLO (auto-approval total) e delegação hierárquica.
+
+**Documentação Central:** [ORCHESTRATION.md](ORCHESTRATION.md)
+
+### Agentes Ativos
+
+1. **DevSan** - Orquestrador raiz (A.G.I. agentica, auto-aprovação total)
+2. **Gemini-CLI** - Planejador estratégico (⚠️ temporariamente broken)
+3. **Qwen-Code** - Executor de código (✅ funcional)
+4. **Kilocode** - Automação navegador (✅ funcional)
+5. **GitHub Copilot CLI** - GitHub ops (⚠️ parcial, pendente auth)
+
+### MCPs Docker (10 containers)
+
+- **Context7** (8080) - Documentação AI
+- **Agent MCP** (4000) - Orquestração local
+- **Firecrawl** (6000) - Web scraping avançado
+- **Tavily** (3000) - Busca web inteligente
+- **Filesystem** (7000) - Manipulação arquivos
+- **Fetch**, **DockerHub**, **Desktop-Commander**, **YouTube-Transcript**, **Gateway**
+
+### Comandos Customizados
+
+Implementados em `~/.gemini/commands/`:
+
+```powershell
+# Delegação automática
+/delegate-to-qwen "Implementar API REST /users"
+/delegate-to-kilocode "Criar testes E2E login flow"
+
+# Status tracking
+/update-status Qwen "Implementando backend - 70%"
+
+# Relatórios
+/project-summary
+```
+
+### Workflow Exemplo
+
+```yaml
+Tarefa: "Criar dashboard web com autenticação JWT"
+
+DevSan (Raiz):
+  - Lê ORCHESTRATION.md
+  - Planeja em fases (arquitetura → backend → frontend → deploy)
+  
+Gemini (Planejamento):
+  - Especifica ERD, API endpoints, componentes React
+  
+Qwen (Backend):
+  - Implementa Node.js + MongoDB com testes
+  - Atualiza LIVE STATUS: 25% → 50% → 75% → 100%
+  
+Kilocode (Frontend):
+  - Scaffolds React app, cria componentes
+  - Testes E2E com Playwright
+  
+Copilot (GitHub):
+  - Cria branch, commit, PR automaticamente
+  
+Tempo Total: ~55min (vs. manual: 4-6h)
+```
+
+### Status Atual (15/12/2025)
+
+- ✅ ORCHESTRATION.md criado (550+ linhas)
+- ✅ Slash commands implementados (4 scripts PowerShell)
+- ✅ MCPs Docker mapeados e documentados
+- ⚠️ Gemini-CLI broken (binário não acessível)
+- ⚠️ Copilot CLI pendente (gh auth + extension)
+- 📋 Próximo: Resolver agentes broken, testar delegação YOLO completa
+
+**Ver detalhes completos:** [ORCHESTRATION.md](ORCHESTRATION.md)
+
+---
