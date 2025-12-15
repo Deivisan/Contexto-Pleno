@@ -1,0 +1,1 @@
+node ./generate_site.js --name "Gemini-CLI" --title "Gemini-CLI - Planejador" --desc "Especialista em decomposição de tarefas, pesquisa e geração de roadmaps." --profs "Planejamento,Pesquisa,Roadmaps,Contexto,Modelos" --out "../sites/Gemini-CLI.html"

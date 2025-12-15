@@ -1,0 +1,1 @@
+node ./generate_site.js --name "Copilot-CLI" --title "GitHub Copilot CLI - Automação" --desc "Automação GitHub, PRs, workflows e integração com Copilot." --profs "CI/CD,GitHub,PRs,Automação,DevOps" --out "../sites/Copilot-CLI.html"

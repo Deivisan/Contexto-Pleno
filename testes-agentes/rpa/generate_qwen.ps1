@@ -1,0 +1,1 @@
+node ./generate_site.js --name "Qwen-Code" --title "Qwen-Code - Codificador" --desc "Geração e refatoração de código, testes e integração com modelos Qwen." --profs "JS,Python,Refactor,Tests,Automação" --out "../sites/Qwen-Code.html"

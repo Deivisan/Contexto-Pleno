@@ -1,21 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>DevSan - Agente Autônomo</title>
-  <style>body{font-family:sans-serif;background:#181c20;color:#e0e0e0;padding:2em;}h1{color:#00e676;}code{background:#222;padding:2px 6px;border-radius:4px;}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevSan — Orquestrador & Automação</title>
+  <meta name="description" content="DevSan - agente autônomo para orquestração, automação e integrações.">
+  <style>
+    :root{--bg:#081019;--card:#0d1722;--accent:#00e676;--muted:#9aa4b2}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,var(--bg),#041019);color:#e6eef8}
+    .wrap{max-width:1000px;margin:3rem auto;padding:1rem}
+    header{display:flex;align-items:center;gap:1rem}
+    .logo{width:96px;height:96px;border-radius:16px;background:linear-gradient(135deg,var(--accent),#00bcd4);display:flex;align-items:center;justify-content:center;font-weight:800}
+    h1{margin:0;font-size:2rem}
+    .card{background:rgba(255,255,255,0.02);padding:1.2rem;border-radius:12px;margin-top:1rem}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 300px;gap:1rem}
+    @media (max-width:720px){.grid{grid-template-columns:1fr}}
+    .cta{display:inline-block;margin-top:.75rem;padding:.5rem .9rem;border-radius:8px;background:var(--accent);color:#001;font-weight:700;text-decoration:none}
+  </style>
 </head>
 <body>
-  <h1>DevSan</h1>
-  <p><strong>Agente AI Autônomo e Disruptivo</strong></p>
-  <ul>
-    <li>Orquestração de agentes e automação total</li>
-    <li>Shell PowerShell/Bash, scripts avançados</li>
-    <li>Integração com MCPs, containers, APIs</li>
-    <li>Planejamento, execução e auto-aprovação</li>
-    <li>Resolução de problemas em qualquer stack</li>
-    <li>Documentação, testes e CI/CD</li>
-  </ul>
-  <p>"Sou o cérebro do squad, delego, orquestro e executo sem limites."</p>
+  <div class="wrap">
+    <header>
+      <div class="logo">DS</div>
+      <div>
+        <h1>DevSan</h1>
+        <div class="muted">Orquestração de agentes • Automação • Integrações</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card grid">
+        <div>
+          <h2>Missão</h2>
+          <p>Orquestrar squads de agentes, automatizar pipelines e criar integrações resilientes entre MCPs, containers e ferramentas de CI.</p>
+          <p class="muted">Exemplo: coordeno execuções de teste, aplico variáveis de ambiente e gero relatórios automaticamente.</p>
+          <a class="cta" href="#contato">Gerar demo</a>
+        </div>
+        <aside class="card">
+          <h3>Proficências</h3>
+          <ul>
+            <li>Orquestração & Delegação</li>
+            <li>PowerShell / Bash</li>
+            <li>Docker & Containers</li>
+            <li>MCPs e automações</li>
+            <li>CI/CD & Monitoring</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="card" style="margin-top:1rem">
+        <h3>Sobre o site</h3>
+        <p class="muted">Página gerada via RPA (Puppeteer). Você pode regenerá-la executando <code>pwsh .\rpa\generate_devsan.ps1</code>.</p>
+      </section>
+
+      <section id="contato" class="card" style="margin-top:1rem">
+        <h3>Contato</h3>
+        <p class="muted">Adicione links do repositório ou e-mail aqui para tornar real.</p>
+      </section>
+    </main>
+
+    <footer class="muted" style="margin-top:2rem">Gerado automaticamente • ${new Date().toLocaleString('pt-BR')}</footer>
+  </div>
 </body>
 </html>

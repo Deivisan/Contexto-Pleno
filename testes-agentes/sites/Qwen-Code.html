@@ -1,20 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Qwen-Code - Codificador</title>
-  <style>body{font-family:sans-serif;background:#181c20;color:#e0e0e0;padding:2em;}h1{color:#00bcd4;}code{background:#222;padding:2px 6px;border-radius:4px;}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Qwen-Code — Geração e Refatoração</title>
+  <meta name="description" content="Qwen-Code - especialista em implementação, refatoração e automação de código.">
+  <style>
+    :root{--bg:#071017;--card:#0b1419;--accent:#00bcd4;--muted:#9fb8c2}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg),#041018);color:#eaf6fb}
+    .wrap{max-width:980px;margin:3rem auto;padding:1rem}
+    header{display:flex;align-items:center;gap:1rem}
+    .logo{width:76px;height:76px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#00a0d6);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .card{background:rgba(255,255,255,0.02);padding:1rem;border-radius:12px;margin-top:1rem}
+  </style>
 </head>
 <body>
-  <h1>Qwen-Code</h1>
-  <p><strong>Especialista em geração e refatoração de código</strong></p>
-  <ul>
-    <li>Implementação rápida em múltiplas linguagens</li>
-    <li>Refatoração, testes e debugging</li>
-    <li>Integração com modelos Qwen gratuitos</li>
-    <li>Automação de tarefas repetitivas</li>
-    <li>Foco em performance e clareza</li>
-  </ul>
-  <p>"Código limpo, rápido e sem enrolação."</p>
+  <div class="wrap">
+    <header>
+      <div class="logo">QC</div>
+      <div>
+        <h1>Qwen-Code</h1>
+        <div class="muted">Implementação • Refatoração • Automação</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Especialidades</h2>
+        <ul>
+          <li>Multilinguagem (JS, Python, etc.)</li>
+          <li>Refatoração e testes automatizados</li>
+          <li>Integração com modelos Qwen</li>
+          <li>Deploys e pipelines de testes</li>
+        </ul>
+        <p class="muted">Regenerar: <code>pwsh .\rpa\generate_qwen.ps1</code></p>
+      </section>
+    </main>
+
+    <footer class="muted" style="margin-top:2rem">Gerado via RPA • ${new Date().toLocaleString('pt-BR')}</footer>
+  </div>
 </body>
 </html>

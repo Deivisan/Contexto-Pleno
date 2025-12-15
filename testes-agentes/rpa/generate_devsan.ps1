@@ -1,0 +1,2 @@
+# Gera o site HTML de DevSan usando o gerador RPA
+node ./generate_site.js --name "DevSan" --title "DevSan - Orquestrador" --desc "Agente autônomo focado em orquestração, automação e integração de MCPs." --profs "Orquestração,PowerShell,Containers,MCPs,CI/CD" --out "../sites/DevSan.html"

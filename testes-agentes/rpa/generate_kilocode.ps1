@@ -1,0 +1,1 @@
+node ./generate_site.js --name "Kilocode" --title "Kilocode - Frontend" --desc "Frontend, prototipação e design systems para interfaces rápidas e acessíveis." --profs "HTML,CSS,UX,Prototipação,Design Systems" --out "../sites/Kilocode.html"
