@@ -56,7 +56,7 @@ Gemini CLI é o agente de linha de comando do Google para interagir com modelos 
       "command": "docker",
       "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
       "env": {
-        "TAVILY_API_KEY": "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"
+        "TAVILY_API_KEY": "<TAVILY_API_KEY>"
       }
     },
     "memory": {

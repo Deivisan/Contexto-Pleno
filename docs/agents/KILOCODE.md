@@ -71,7 +71,7 @@ Kilocode é um agente CLI focado em geração rápida de código e scaffolding. 
       "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
       "tools": ["tavily-search", "tavily-extract", "tavily-crawl", "tavily-map"],
       "env": {
-        "TAVILY_API_KEY": "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"
+        "TAVILY_API_KEY": "<TAVILY_API_KEY>"
       }
     },
     "memory": {

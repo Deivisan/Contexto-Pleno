@@ -70,7 +70,7 @@ Windsurf é uma IDE AI-native da Codeium com suporte integrado a Model Context P
       "command": "docker",
       "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
       "env": {
-        "TAVILY_API_KEY": "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"
+        "TAVILY_API_KEY": "<TAVILY_API_KEY>"
       },
       "disabled": false,
       "autoApprove": ["tavily-search", "tavily-extract"]
