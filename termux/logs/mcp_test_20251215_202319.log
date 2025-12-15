@@ -1,0 +1,67 @@
+🧪 Iniciando Testes de MCPs Nativos (Termux)...
+📅 Data: Mon Dec 15 20:23:19 -03 2025
+---------------------------------------------------
+Testing Tavily... ❌ FALHA (Code: 1)
+   Output: file:///data/data/com.termux/files/usr/lib/node_modules/tavily-mcp/build/index.js:13
+    throw new Error("TAVILY_API_KEY environment variable is required");
+          ^
+
+Error: TAVILY_API_KEY environment variable is required
+    at file:///data/data/com.termux/files/usr/lib/node_modules/tavily-mcp/build/index.js:13:11
+    at ModuleJob.run (node:internal/modules/esm/module_job:413:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:654:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v25.2.1
+Testing Memory... ✅ OK (Ver: Knowledge Graph MCP Server running on stdio)
+Testing Git... ✅ OK (Ver: {"level":30,"time":1765841018549,"env":"development","version":"2.6.5","pid":2998,"requestId":"M82G7-F2B1E","timestamp":"2025-12-15T23:23:38.546Z","operation":"loggerInit","msg":"Logger initialized. MCP level: debug."}
+{"level":30,"time":1765841018551,"env":"development","version":"2.6.5","pid":2998,"requestId":"A6FW9-GB1SH","timestamp":"2025-12-15T23:23:38.550Z","operation":"LoggerInit","msg":"Logger initialized. Effective MCP logging level: debug."}
+{"level":30,"time":1765841018551,"env":"development","version":"2.6.5","pid":2998,"runtime":"node","runtimeVersion":"Node.js 25.2.1","requestId":"6MARA-06YU7","timestamp":"2025-12-15T23:23:38.551Z","operation":"RuntimeDetection","msg":"Runtime detected: Node.js 25.2.1"}
+{"level":30,"time":1765841018552,"env":"development","version":"2.6.5","pid":2998,"requestId":"L3ZMA-THC2R","timestamp":"2025-12-15T23:23:38.551Z","operation":"StorageInit","msg":"Storage service initialized with provider: in-memory"}
+{"level":30,"time":1765841018553,"env":"development","version":"2.6.5","pid":2998,"applicationName":"@cyanheads/git-mcp-server","applicationVersion":"2.6.5","nodeEnvironment":"development","requestId":"J9XS7-FLD7N","timestamp":"2025-12-15T23:23:38.553Z","operation":"ServerStartup","msg":"Starting @cyanheads/git-mcp-server (v2.6.5)..."}
+{"level":30,"time":1765841018554,"env":"development","version":"2.6.5","pid":2998,"transport":"stdio","requestId":"4CB3P-5EWZJ","timestamp":"2025-12-15T23:23:38.554Z","operation":"TransportManager.start","msg":"Starting transport: stdio"}
+{"level":30,"time":1765841018554,"env":"development","version":"2.6.5","pid":2998,"requestId":"798ZO-F345H","timestamp":"2025-12-15T23:23:38.554Z","operation":"createMcpServerInstance","msg":"Initializing MCP server instance"}
+{"level":30,"time":1765841018574,"env":"development","version":"2.6.5","pid":2998,"requestId":"43L5S-2BQNT","timestamp":"2025-12-15T23:23:38.574Z","operation":"ToolRegistry.registerAll","msg":"Registering 27 tool(s)..."}
+{"level":30,"time":1765841018583,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_add","requestId":"TS5L6-0VQNZ","timestamp":"2025-12-15T23:23:38.575Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_add' registered successfully."}
+{"level":30,"time":1765841018586,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_blame","requestId":"DXAAM-I1ZV1","timestamp":"2025-12-15T23:23:38.584Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_blame' registered successfully."}
+{"level":30,"time":1765841018587,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_branch","requestId":"0RKJ5-L2JKG","timestamp":"2025-12-15T23:23:38.586Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_branch' registered successfully."}
+{"level":30,"time":1765841018589,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_checkout","requestId":"RM2QU-PPB0I","timestamp":"2025-12-15T23:23:38.588Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_checkout' registered successfully."}
+{"level":30,"time":1765841018590,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_cherry_pick","requestId":"YPW48-98LZ9","timestamp":"2025-12-15T23:23:38.589Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_cherry_pick' registered successfully."}
+{"level":30,"time":1765841018590,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_clean","requestId":"4OIYK-CGYGA","timestamp":"2025-12-15T23:23:38.590Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_clean' registered successfully."}
+{"level":30,"time":1765841018591,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_clear_working_dir","requestId":"4YV7Q-J5PMP","timestamp":"2025-12-15T23:23:38.590Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_clear_working_dir' registered successfully."}
+{"level":30,"time":1765841018591,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_clone","requestId":"1KLB3-QJVKE","timestamp":"2025-12-15T23:23:38.591Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_clone' registered successfully."}
+{"level":30,"time":1765841018592,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_commit","requestId":"Q0KOQ-H062S","timestamp":"2025-12-15T23:23:38.592Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_commit' registered successfully."}
+{"level":30,"time":1765841018593,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_diff","requestId":"H0SB1-RI59A","timestamp":"2025-12-15T23:23:38.592Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_diff' registered successfully."}
+{"level":30,"time":1765841018593,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_fetch","requestId":"I566X-HF3XY","timestamp":"2025-12-15T23:23:38.593Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_fetch' registered successfully."}
+{"level":30,"time":1765841018593,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_init","requestId":"6T7FS-K2Q6Y","timestamp":"2025-12-15T23:23:38.593Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_init' registered successfully."}
+{"level":30,"time":1765841018594,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_log","requestId":"BETTJ-X1XVK","timestamp":"2025-12-15T23:23:38.593Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_log' registered successfully."}
+{"level":30,"time":1765841018594,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_merge","requestId":"UVGLO-G9UWL","timestamp":"2025-12-15T23:23:38.594Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_merge' registered successfully."}
+{"level":30,"time":1765841018594,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_pull","requestId":"E1YM8-TW7QS","timestamp":"2025-12-15T23:23:38.594Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_pull' registered successfully."}
+{"level":30,"time":1765841018594,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_push","requestId":"F6N1E-2CNFX","timestamp":"2025-12-15T23:23:38.594Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_push' registered successfully."}
+{"level":30,"time":1765841018595,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_rebase","requestId":"6PPFY-3UEKO","timestamp":"2025-12-15T23:23:38.594Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_rebase' registered successfully."}
+{"level":30,"time":1765841018595,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_reflog","requestId":"XTY8K-ABZAA","timestamp":"2025-12-15T23:23:38.595Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_reflog' registered successfully."}
+{"level":30,"time":1765841018595,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_remote","requestId":"1V1Q7-AUJEA","timestamp":"2025-12-15T23:23:38.595Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_remote' registered successfully."}
+{"level":30,"time":1765841018595,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_reset","requestId":"7ULKB-MEIG5","timestamp":"2025-12-15T23:23:38.595Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_reset' registered successfully."}
+{"level":30,"time":1765841018596,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_set_working_dir","requestId":"K5QEP-F4JO5","timestamp":"2025-12-15T23:23:38.596Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_set_working_dir' registered successfully."}
+{"level":30,"time":1765841018596,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_show","requestId":"OV9IS-5VSRA","timestamp":"2025-12-15T23:23:38.596Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_show' registered successfully."}
+{"level":30,"time":1765841018596,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_stash","requestId":"AFH1V-530XI","timestamp":"2025-12-15T23:23:38.596Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_stash' registered successfully."}
+{"level":30,"time":1765841018597,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_status","requestId":"HTYLG-1QGXG","timestamp":"2025-12-15T23:23:38.596Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_status' registered successfully."}
+{"level":30,"time":1765841018597,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_tag","requestId":"SOSP3-1CXVP","timestamp":"2025-12-15T23:23:38.597Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_tag' registered successfully."}
+{"level":30,"time":1765841018597,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_worktree","requestId":"D5BK2-72WHO","timestamp":"2025-12-15T23:23:38.597Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_worktree' registered successfully."}
+{"level":30,"time":1765841018597,"env":"development","version":"2.6.5","pid":2998,"toolName":"git_wrapup_instructions","requestId":"756A1-UWRXR","timestamp":"2025-12-15T23:23:38.597Z","operation":"ToolRegistry.registerTool","msg":"Tool 'git_wrapup_instructions' registered successfully."}
+{"level":30,"time":1765841018598,"env":"development","version":"2.6.5","pid":2998,"requestId":"MTW44-SL2PS","timestamp":"2025-12-15T23:23:38.598Z","operation":"ResourceRegistry.registerAll","msg":"Registering 1 resource(s)..."}
+{"level":30,"time":1765841018599,"env":"development","version":"2.6.5","pid":2998,"requestId":"WT4MG-8PFDS","timestamp":"2025-12-15T23:23:38.599Z","resourceName":"git-working-directory","operation":"RegisterResource","msg":"Registering resource: 'git-working-directory'"}
+{"level":30,"time":1765841018601,"env":"development","version":"2.6.5","pid":2998,"requestId":"WT4MG-8PFDS","timestamp":"2025-12-15T23:23:38.599Z","resourceName":"git-working-directory","operation":"RegisterResource","msg":"Resource 'git-working-directory' registered successfully."}
+{"level":30,"time":1765841018604,"env":"development","version":"2.6.5","pid":2998,"requestId":"0MBUS-75JMW","timestamp":"2025-12-15T23:23:38.602Z","operation":"PromptRegistry.registerAll","msg":"Registered prompt: git_wrapup"}
+{"level":30,"time":1765841018604,"env":"development","version":"2.6.5","pid":2998,"requestId":"0MBUS-75JMW","timestamp":"2025-12-15T23:23:38.602Z","operation":"PromptRegistry.registerAll","msg":"Successfully registered 1 prompts"}
+{"level":30,"time":1765841018604,"env":"development","version":"2.6.5","pid":2998,"requestId":"R37F7-DZERI","timestamp":"2025-12-15T23:23:38.604Z","operation":"RootsRegistry.registerAll","msg":"Roots capability registered successfully"}
+{"level":30,"time":1765841018604,"env":"development","version":"2.6.5","pid":2998,"requestId":"798ZO-F345H","timestamp":"2025-12-15T23:23:38.554Z","operation":"createMcpServerInstance","msg":"All MCP capabilities registered successfully"}
+{"level":30,"time":1765841018605,"env":"development","version":"2.6.5","pid":2998,"transport":"stdio","requestId":"4CB3P-5EWZJ","timestamp":"2025-12-15T23:23:38.554Z","operation":"connectStdioTransport","transportType":"Stdio","msg":"Attempting to connect stdio transport..."}
+{"level":30,"time":1765841018606,"env":"development","version":"2.6.5","pid":2998,"transport":"stdio","requestId":"4CB3P-5EWZJ","timestamp":"2025-12-15T23:23:38.554Z","operation":"connectStdioTransport","transportType":"Stdio","msg":"MCP Server connected and listening via stdio transport."}
+{"level":30,"time":1765841018606,"env":"development","version":"2.6.5","pid":2998,"applicationName":"@cyanheads/git-mcp-server","applicationVersion":"2.6.5","nodeEnvironment":"development","requestId":"J9XS7-FLD7N","timestamp":"2025-12-15T23:23:38.553Z","operation":"ServerStartup","msg":"@cyanheads/git-mcp-server is now running and ready."})
+Testing Context7... ✅ OK (Help responsivo)
+Testing Filesystem... ❓ UNKNOWN (Filesystem requer stdio interativo)
+Testing Android MCP... ✅ OK (Arquivo existe)
+---------------------------------------------------
+🏁 Testes Finalizados. Log salvo em termux/logs/mcp_test_20251215_202319.log
