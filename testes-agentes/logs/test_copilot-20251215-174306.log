@@ -1,0 +1,9 @@
+Perfil PowerShell carregado (rápido e abrangente).
+== Test Copilot (gh extension copilot) ==
+gh --version -> gh version 2.83.2 (2025-12-10) https://github.com/cli/cli/releases/tag/v2.83.2
+[31;1mYou are not logged into any GitHub hosts. To log in, run: gh auth login[0m
+gh extensions: To get started with GitHub CLI, please run:  gh auth login Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+Instalando extensão copilot...
+[31;1mTo get started with GitHub CLI, please run:  gh auth login[0m
+[31;1mAlternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.[0m
+? Copilot extension instalada (se disponível)

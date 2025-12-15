@@ -1,0 +1,8 @@
+Perfil PowerShell carregado (rápido e abrangente).
+ParserError: C:\Projetos\Contexto-Pleno\testes-agentes\test_firecrawl_capture.ps1:22:26
+Line |
+  22 |          "Erro capturando $u: $_" | Tee-Object -FilePath $log -Append
+     |                           ~~~
+     | Variable reference is not valid. ':' was not
+     | followed by a valid variable name character.
+     | Consider using ${} to delimit the name.

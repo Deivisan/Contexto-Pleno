@@ -14,14 +14,19 @@ try {
 $extensions = gh extension list 2>&1
 Write-Host "gh extensions: $extensions"
 
-# Install copilot extension if missing
+# Install copilot extension if missing (only if authenticated)
 if ($extensions -notmatch 'copilot') {
-    Write-Host "Instalando extensão copilot..." -ForegroundColor Gray
-    try {
-        gh extension install github/gh-copilot 2>&1 | Tee-Object -FilePath "$PSScriptRoot\logs\gh-copilot-install.txt"
-        Write-Host "✅ Copilot extension instalada (se disponível)" -ForegroundColor Green
-    } catch {
-        Write-Host "⚠️ Falha ao instalar copilot ext: $_" -ForegroundColor Yellow
+    $auth = (gh auth status 2>&1)
+    if ($auth -match 'Logged in') {
+        Write-Host "Instalando extensão copilot..." -ForegroundColor Gray
+        try {
+            gh extension install github/gh-copilot 2>&1 | Tee-Object -FilePath "$PSScriptRoot\logs\gh-copilot-install.txt"
+            Write-Host "✅ Copilot extension instalada (se disponível)" -ForegroundColor Green
+        } catch {
+            Write-Host "⚠️ Falha ao instalar copilot ext: $_" -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host "⚠️ gh não autenticado. Rode 'gh auth login' manualmente antes de instalar copilot." -ForegroundColor Yellow
     }
 } else {
     Write-Host "Copilot extension já instalada" -ForegroundColor Green

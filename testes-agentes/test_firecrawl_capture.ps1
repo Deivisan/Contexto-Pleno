@@ -16,10 +16,10 @@ foreach ($u in $urls) {
         if (Get-Command firecrawl -ErrorAction SilentlyContinue) {
             firecrawl scrape --url $u --format markdown | Tee-Object -FilePath $log -Append
         } else {
-            "[INSTRUÇÃO] Use mcp_firecrawl_fir_firecrawl_scrape para $u" | Tee-Object -FilePath $log -Append
+            "[INSTRUÇÃO] Use mcp_firecrawl_fir_firecrawl_scrape para ${u}" | Tee-Object -FilePath $log -Append
         }
     } catch {
-        "Erro capturando $u: $_" | Tee-Object -FilePath $log -Append
+        "Erro capturando ${u}: $_" | Tee-Object -FilePath $log -Append
     }
 }
 Write-Host "✅ Teste Firecrawl concluído (log: $log)" -ForegroundColor Green

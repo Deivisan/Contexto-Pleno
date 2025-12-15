@@ -1,0 +1,5 @@
+Perfil PowerShell carregado (rápido e abrangente).
+== Test Kilocode ==
+kilocode --version -> 0.16.0
+error: unknown option '--yolo'
+? Kilocode prompt executado, output salvo em logs/
