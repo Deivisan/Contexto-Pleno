@@ -10,14 +10,14 @@
 ## 📊 LIVE STATUS (Atualização Automática)
 
 ```yaml
-Última Atualização: 2025-12-15 17:03:00
+Última Atualização: 2025-12-15 17:45:35
 
 # Agentes CLI
 DevSan:
   status: Ativo
-  task: Criando ORCHESTRATION.md - configurando orquestração multi-agente
   mode: YOLO (auto-approval total)
   
+  task: Testes criados em testes-agentes; MCP env aplicadas
 Gemini-CLI:
   status: ❌ Broken (binário não acessível)
   issue: "Arquivos .gemini.cmd estranhos, npm install corrompeu PATH"

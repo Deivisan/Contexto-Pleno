@@ -1,0 +1,13 @@
+{
+  "name": "agentes-site-rpa",
+  "version": "1.0.0",
+  "description": "RPA generator for agent sites (Puppeteer)",
+  "private": true,
+  "scripts": {
+    "install-deps": "npm install puppeteer --save",
+    "generate": "node generate_site.js"
+  },
+  "dependencies": {
+    "puppeteer": "^20.10.0"
+  }
+}
