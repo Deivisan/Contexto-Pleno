@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Configuração MCP Universal para todos os agentes - Gerado 2025-12-09",
+  
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": {
+        "CONTEXT7_API_KEY": "ctx7sk-3e991779-425e-468d-8907-ffe3e5171a4e",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": ["resolve-library-id", "get-library-docs"]
+    },
+    
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "tavily-mcp"],
+      "env": {
+        "TAVILY_API_KEY": "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",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": ["tavily_search", "tavily_extract", "tavily_crawl", "tavily_map"]
+    },
+    
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": ["create_entities", "read_graph", "search_nodes", "add_observations"]
+    },
+    
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git@latest"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": ["git_status", "git_log", "git_diff"]
+    },
+    
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": ["fetch"]
+    },
+    
+    "filesystem": {
+      "command": "uvx",
+      "args": ["mcp-server-filesystem@latest", "C:\\"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": true,
+      "autoApprove": ["read_file", "list_directory", "write_file"]
+    },
+    
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": true,
+      "autoApprove": []
+    },
+    
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": true,
+      "autoApprove": ["browser_navigate", "browser_click", "browser_screenshot"]
+    },
+    
+    "github": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      },
+      "disabled": true,
+      "autoApprove": []
+    }
+  },
+  
+  "globalSettings": {
+    "autoApproveAll": false,
+    "logLevel": "info",
+    "connectionTimeout": 30000,
+    "maxRetries": 3,
+    "healthCheckInterval": 60000,
+    "telemetry": {
+      "enabled": false,
+      "anonymized": true
+    },
+    "security": {
+      "validateSchemas": true,
+      "sanitizeInputs": true,
+      "rateLimiting": {
+        "enabled": true,
+        "requestsPerMinute": 60
+      }
+    }
+  }
+}

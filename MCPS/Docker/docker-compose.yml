@@ -1,14 +1,31 @@
 version: '3.9'
+
+# MCP Universal Docker Compose - merged
+# Combina serviços HTTP/SSE persistentes e notas de uso para MCPs STDIO
+
 services:
+  # CONTEXT7 - Documentação de bibliotecas (HTTP/SSE)
   context7:
     image: mcp/context7:latest
     container_name: DevSan-MCP-context7
     ports:
       - "8080:8080"
+    environment:
+      - CONTEXT7_API_KEY=${CONTEXT7_API_KEY}
+      - FASTMCP_LOG_LEVEL=${FASTMCP_LOG_LEVEL:-ERROR}
     volumes:
       - context7-data:/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - mcp-network
 
+  # TAVILY - recomendado como STDIO (mantido como daemon para conveniência)
   tavily:
     image: mcp/tavily:latest
     container_name: DevSan-MCP-tavily
@@ -48,7 +65,7 @@ services:
     ports:
       - "6000:6000"
     environment:
-      - FIRECRAWL_API_KEY=fc-d3156cdf9a444ce380f7c87b6090fb30
+      - FIRECRAWL_API_KEY=${FIRECRAWL_API_KEY:-fc-d3156cdf9a444ce380f7c87b6090fb30}
     restart: unless-stopped
 
   youtube-transcription:
@@ -84,14 +101,18 @@ services:
     restart: unless-stopped
 
 networks:
-  mcps_net:
+  mcp-network:
     driver: bridge
+    name: mcp-universal-network
 
 volumes:
   context7-data: {}
   tavily-data: {}
+  mcp-memory-data:
+    name: mcp-memory-data
 
 # Notes:
-# - This is a template; review the image names, tags and environment variables required for each MCP.
-# - Add environment variables, volumes, and any network constraints as needed.
-# - To use: `docker-compose -f docker-compose.yml.template up -d` (copy the file to docker-compose.yml when ready).
+# - Template mergeado: revise imagens, tags e env vars.
+# - Para MCPs STDIO (tavily, fetch, memory), considere usar `docker run -i --rm` conforme notas.
+# - Use: `docker-compose -f docker-compose.yml up -d` para levantar os serviços persistentes.
+

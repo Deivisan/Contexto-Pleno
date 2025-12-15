@@ -1,184 +1,307 @@
-<!--
-README para repositório universal dos agentes: DevSan, Gemini, Qwen, Kilocode
-Foco: garantir instalação e acessibilidade no Windows (PowerShell 7)
--->
-# Contexto-Pleno — Repositório Universal dos Agentes
+# 🚀 Contexto-Pleno — Hub Universal de Agentes IA
 
+> **Repositório central para configuração e orquestração de agentes IA com MCPs Docker universais.**
 
-Este repositório é o hub do meu quarteto de agentes (DevSan, Gemini, Qwen e Kilocode) — agentes que rodam no Termux (Android) e também no PC. Este README foca na parte de PC (Windows) para garantir que os agentes estejam instalados e acessíveis via PowerShell 7 (pwsh).
+[![Status](https://img.shields.io/badge/Status-Ativo-success)](/)
+[![MCPs](https://img.shields.io/badge/MCPs-9%20Configurados-blue)](/)
+[![Docker](https://img.shields.io/badge/Docker-Containers-2496ED)](/)
 
+---
 
-## Agentes do quarteto
+## 📋 Índice
 
-- DevSan — Agente de automação/coordenação pessoal
-- Gemini CLI — Busca web, memória e integração com MCP
-- Qwen CLI — Agente orientado a código
-- Kilocode CLI — Geração rápida de código e scaffolding
+- [Visão Geral](#-visão-geral)
+- [Arquitetura](#-arquitetura)
+- [Quick Start](#-quick-start)
+- [MCPs Disponíveis](#-mcps-disponíveis)
+- [Configuração por IDE/Agente](#-configuração-por-ideagente)
+- [Estrutura do Repositório](#-estrutura-do-repositório)
+- [Scripts Úteis](#-scripts-úteis)
+- [API Keys](#-api-keys)
 
-Opcional: GitHub Copilot CLI — assistente para revisão e sugestão de código.
+---
 
- 
-## Requisitos (Windows)
+## 🎯 Visão Geral
 
-- Windows 10/11
-- PowerShell 7 (pwsh) — preferível a Windows PowerShell 5.1
-- Git
-- Node.js 25+ (recomendado) — use nvm-windows, winget ou instalador em https://nodejs.org
-- (opcional) Python 3.x
+Este repositório centraliza a configuração de **MCPs (Model Context Protocol)** via **Docker containers** para uso universal em múltiplos agentes e IDEs:
 
- 
-## Instalação (rápida, com winget)
+### 🤖 Agentes CLI Suportados
+| Agente | Versão | Status |
+|--------|--------|--------|
+| **Gemini CLI** | 0.19.4 | ✅ Instalado |
+| **Claude Code** | 2.0.60 | ✅ Instalado |
+| **Kilocode CLI** | 0.12.1 | ✅ Instalado |
+| **GitHub Copilot CLI** | 0.0.367 | ✅ Instalado |
 
+### 💻 IDEs Suportadas
+| IDE | MCP Support | Documentação |
+|-----|-------------|--------------|
+| **Kiro (AWS)** | ✅ Nativo | [docs/ides/KIRO.md](docs/ides/KIRO.md) |
+| **VS Code / Insiders** | ✅ Via Copilot | [docs/ides/VSCODE.md](docs/ides/VSCODE.md) |
+| **Windsurf** | ✅ Nativo | [docs/ides/WINDSURF.md](docs/ides/WINDSURF.md) |
 
-Abra o PowerShell 7 como usuário com permissão de instalação e rode:
+---
 
-```powershell
-# Atualizar política de execução (se necessário)
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+## 🏗️ Arquitetura
 
-# Instalar requisitos via winget
-winget install --accept-package-agreements --accept-source-agreements --exact -e OpenJS.NodeJS.LTS
-winget install --accept-package-agreements --accept-source-agreements --exact -e Git.Git
-winget install --accept-package-agreements --accept-source-agreements --exact -e Python.Python.3
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     DOCKER CONTAINERS                            │
+│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐       │
+│  │ context7  │ │  tavily   │ │  memory   │ │   fetch   │       │
+│  │ HTTP:8080 │ │   STDIO   │ │   STDIO   │ │   STDIO   │       │
+│  └───────────┘ └───────────┘ └───────────┘ └───────────┘       │
+│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐       │
+│  │filesystem │ │playwright │ │    git    │ │  github   │       │
+│  │   STDIO   │ │   STDIO   │ │   STDIO   │ │   STDIO   │       │
+│  └───────────┘ └───────────┘ └───────────┘ └───────────┘       │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┼───────────────┐
+              │               │               │
+              ▼               ▼               ▼
+        ┌──────────┐   ┌──────────┐   ┌──────────┐
+        │   Kiro   │   │  VS Code │   │ Windsurf │
+        │   (AWS)  │   │ Insiders │   │(Codeium) │
+        └──────────┘   └──────────┘   └──────────┘
+              │               │               │
+              ▼               ▼               ▼
+        ┌──────────┐   ┌──────────┐   ┌──────────┐
+        │  Gemini  │   │  Claude  │   │ Kilocode │
+        │   CLI    │   │   Code   │   │   CLI    │
+        └──────────┘   └──────────┘   └──────────┘
 ```
 
-Se não possuir winget, use o instalador do Node.js (LTS) e o instalador do Git manualmente.
+---
 
- 
-## Instalar os agentes via npm (global)
+## ⚡ Quick Start
 
+### 1. Pré-requisitos
 
 ```powershell
-# Instala globalmente os CLIs de cada agente
-npm install -g @qwen-code/qwen-code @google/gemini-cli @kilocode/cli @githubnext/github-copilot-cli
+# Verificar Docker
+docker --version  # v29.1.2+
 
-# Nota: DevSan é o agente local; configure uma forma de execução direta (veja seção abaixo)
+# Verificar Node.js
+node --version    # v25.2.1+
 ```
 
- 
-## DevSan (local)
-
-DevSan é um agente personalizado que pode existir localmente no repositório. Para deixá-lo acessível no PowerShell:
-
-
-1) Crie um wrapper simples em `C:\Users\<seu-usuário>\AppData\Roaming\npm` ou adicione um alias no `pwsh` profile. Exemplo (PowerShell 7):
+### 2. Iniciar Container Context7 (HTTP/SSE)
 
 ```powershell
-# Script de exemplo para criar um 'devsan' entrypoint
-mkdir -Force "$env:APPDATA\npm"
-$scriptPath = "C:\Projetos\Contexto-Pleno\scripts\devsan.ps1"
-if (!(Test-Path $scriptPath)) {
-    New-Item -ItemType File -Path $scriptPath -Force -Value "Write-Host 'DevSan placeholder — customize scripts/devsan.ps1 para executar o agente'"
+# Container sempre rodando na porta 8080
+docker run -d `
+  --name mcp-context7 `
+  -p 8080:8080 `
+  --restart unless-stopped `
+  mcp/context7:latest
+```
+
+### 3. Criar Volume para Memory
+
+```powershell
+docker volume create mcp-memory-data
+```
+
+### 4. Aplicar Configuração
+
+```powershell
+# Copiar config universal para Kiro
+Copy-Item "MCPS/configs/universal-docker.json" "$env:USERPROFILE\.kiro\settings\mcp.json"
+
+# Ou para VS Code
+Copy-Item "MCPS/configs/universal-docker.json" ".vscode/mcp.json"
+```
+
+### 5. Verificar
+
+```powershell
+# Ver containers rodando
+docker ps --filter "name=mcp"
+
+# Testar endpoint Context7
+curl http://localhost:8080/sse
+```
+
+---
+
+## 🐳 MCPs Disponíveis
+
+| MCP | Imagem | Tipo | Status | Tools |
+|-----|--------|------|--------|-------|
+| **Context7** | `mcp/context7` | HTTP/SSE | ✅ Ativo | 2 |
+| **Tavily** | `mcp/tavily` | STDIO | ✅ Ativo | 4 |
+| **Memory** | `mcp/memory` | STDIO | ✅ Ativo | 9 |
+| **Fetch** | `mcp/fetch` | STDIO | ✅ Ativo | 1 |
+| **Filesystem** | `mcp/filesystem` | STDIO | ✅ Ativo | 7 |
+| **Playwright** | `mcp/playwright` | STDIO | ✅ Ativo | 20+ |
+| **Sequential Thinking** | `mcp/sequentialthinking` | STDIO | ⏸️ Disponível | - |
+| **Git** | `mcp/git` | STDIO | ⏸️ Disponível | - |
+| **GitHub** | `ghcr.io/github/github-mcp-server` | STDIO | ⏸️ Disponível | 50+ |
+
+> 📖 Documentação completa: [docs/mcps/DOCKER-MCPS.md](docs/mcps/DOCKER-MCPS.md)
+
+---
+
+## ⚙️ Configuração por IDE/Agente
+
+### Kiro (AWS)
+
+```json
+// ~/.kiro/settings/mcp.json
+{
+  "mcpServers": {
+    "tavily": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
+      "env": { "TAVILY_API_KEY": "sua-key" }
+    },
+    "context7": {
+      "url": "http://localhost:8080/sse"
+    }
+  }
 }
-
-# Para acesso rápido, adicione um link simbólico (shim)
-New-Item -ItemType File -Path "$env:APPDATA\npm\devsan.ps1" -Force -Value (Get-Content $scriptPath -Raw) | Out-Null
 ```
 
-Depois adicione `$env:APPDATA\npm` ao `PATH` (se ainda não estiver) para o usuário.
+> 📖 Guia completo: [docs/ides/KIRO.md](docs/ides/KIRO.md)
 
- 
-## Garantir PATH do npm global no PowerShell 7
+### VS Code / Insiders
 
-Verifique se o caminho global do npm está adicionado ao PATH de usuário. O caminho padrão é `%APPDATA%\npm`.
+```json
+// .vscode/mcp.json
+{
+  "servers": {
+    "tavily": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
+      "env": { "TAVILY_API_KEY": "sua-key" }
+    }
+  }
+}
+```
 
+> 📖 Guia completo: [docs/ides/VSCODE.md](docs/ides/VSCODE.md)
+
+### Windsurf
+
+```json
+// ~/.codeium/windsurf/mcp_config.json
+{
+  "mcpServers": {
+    "tavily": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
+      "env": { "TAVILY_API_KEY": "sua-key" }
+    }
+  }
+}
+```
+
+> 📖 Guia completo: [docs/ides/WINDSURF.md](docs/ides/WINDSURF.md)
+
+### Agentes CLI
+
+| Agente | Config File | Guia |
+|--------|-------------|------|
+| Gemini CLI | `.gemini/settings.json` | [docs/agents/GEMINI-CLI.md](docs/agents/GEMINI-CLI.md) |
+| Claude Code | `~/.claude.json` | [docs/agents/CLAUDE-CODE.md](docs/agents/CLAUDE-CODE.md) |
+| Kilocode | `.kilocode/mcp.json` | [docs/agents/KILOCODE.md](docs/agents/KILOCODE.md) |
+| Copilot CLI | `~/.copilot/config.json` | [docs/agents/GITHUB-COPILOT-CLI.md](docs/agents/GITHUB-COPILOT-CLI.md) |
+
+---
+
+## 📁 Estrutura do Repositório
+
+```
+Contexto-Pleno/
+├── 📄 README.md                    # Este arquivo
+├── 📄 ROADMAP-MCP-UNIVERSAL.md     # Roadmap e progresso
+├── 📄 PC-Context.md                # Contexto do PC
+├── 📄 Banco-Api.md                 # Central de API keys
+│
+├── 📁 docs/                        # Documentação
+│   ├── 📁 ides/                    # Guias por IDE
+│   │   ├── KIRO.md
+│   │   ├── VSCODE.md
+│   │   └── WINDSURF.md
+│   ├── 📁 agents/                  # Guias por agente CLI
+│   │   ├── GEMINI-CLI.md
+│   │   ├── CLAUDE-CODE.md
+│   │   ├── KILOCODE.md
+│   │   └── GITHUB-COPILOT-CLI.md
+│   └── 📁 mcps/                    # Documentação MCPs
+│       └── DOCKER-MCPS.md
+│
+├── 📁 MCPS/                        # Configurações MCP
+│   ├── 📁 configs/                 # Configs universais
+│   │   ├── universal-docker.json   # Config principal
+│   │   └── .env                    # Variáveis de ambiente
+│   └── 📁 Docker/                  # Arquivos Docker
+│       ├── docker-compose.yml
+│       ├── .env
+│       └── test-results-*.md
+│
+├── 📁 scripts/                     # Scripts de automação
+│   ├── start-mcp-context7.ps1      # Auto-start Context7
+│   ├── setup-windows.ps1           # Setup inicial
+│   ├── validate-agents.ps1         # Validar agentes
+│   └── test-mcps.ps1               # Testar MCPs
+│
+└── 📁 Arquivos de Agentes          # Contexto por agente
+    ├── DevSan.md                   # Core personality
+    ├── Gemini.md
+    ├── KILOCODE.md
+    └── QWEN.md
+```
+
+---
+
+## 🛠️ Scripts Úteis
+
+### Iniciar Context7
 
 ```powershell
-# Verificar
-Get-ChildItem Env:Path | Select-String "%APPDATA%\\npm" -Quiet;
-
-# Se ausente, adicione permanentemente
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";" + $Env:APPDATA + "\\npm", "User")
-
-# Após adicionar, feche e reabra o PowerShell 7
+pwsh ./scripts/start-mcp-context7.ps1
 ```
 
- 
-## Verificando instalações e acessibilidade (PowerShell 7)
-
+### Validar Agentes Instalados
 
 ```powershell
-# Verificar versões
-node --version
-npm --version
-git --version
-python --version
-
-# Verificar comandos dos agentes
-Get-Command qwen
-Get-Command gemini
-Get-Command kilocode
-Get-Command copilot
-
-# Se houver retorno, os comandos estão acessíveis em PATH
+pwsh ./scripts/validate-agents.ps1
 ```
 
- 
-## Script de instalação/validação rápida
+### Testar MCPs
 
-- Incluí um script automatizado para Windows em `scripts/setup-windows.ps1` que:
-- Verifica Node.js, Git, Python
-- Instala Node se necessário (via winget)
-- Adiciona `%APPDATA%\npm` ao PATH de usuário
-- Instala os agentes via npm global
-- Verifica comandos e versões
+```powershell
+pwsh ./scripts/test-mcps.ps1
+```
 
-Para executar localmente:
+### Setup Completo Windows
 
 ```powershell
 pwsh ./scripts/setup-windows.ps1
 ```
 
- 
-## Observações sobre Termux
+---
 
-Este repositório também contém documentação para rodar os agentes em Termux (Android). As instruções para Termux são distintas e estão mantidas nos arquivos `QWEN.md`, `GEMINI.md`, `KILOCODE.md`, `DevSan.md`.
+## 🔑 API Keys
 
- 
-## Contribuição e Personalização
+As API keys estão centralizadas em:
+- **Arquivo principal:** `Banco-Api.md`
+- **Variáveis de ambiente:** `MCPS/configs/.env`
 
-- Edite `scripts/setup-windows.ps1` para personalizar instalações (ex: usar Chocolatey, instaladores manuais, configuração de proxys)
-- DevSan pode ser integrado como um executável Node ou PowerShell — considere criar um pequeno CLI wrapper (npm link ou um módulo npm local) para facilitar execução direta `devsan` no terminal.
+### Keys Configuradas
 
- 
-## Comandos rápidos de troubleshooting
-
-- `npm root -g` — mostra onde os binários globais são colocados
-- `where.exe qwen` — localiza executáveis no PATH (Windows CLI)
-- `Get-Command qwen` — verifica em PowerShell
- 
-## MCPS (Model Context Protocol Servers)
-Criamos a pasta `MCPS/Docker` com scripts e exportados atuais do Docker para facilitar integrações:
-
-
-Scripts úteis:
- - `scripts/validate-agents.ps1` — valida se os CLIs estão instalados e acessíveis no PATH, gerando `MCPS/Docker/agents-validation.json`
-
-Para tornar MCPs acessíveis globalmente aos agentes CLI:
-1. Exponha portas dos containers com `docker run -p hostPort:containerPort` ou atualize a configuração do serviço.
-2. Rode `pwsh ./scripts/export-docker-containers.ps1` para atualizar `containers.json`.
-3. Rode `pwsh ./scripts/apply-mcp-env.ps1` para gravar variáveis de ambiente no Windows (`setx`).
-4. Abra um novo PowerShell para herdar as variáveis.
-5. Para executar os testes de saúde dos MCPs e coletar logs, execute:
-
-```powershell
-pwsh ./scripts/test-mcps.ps1
-```
-Os resultados estarão em `MCPS/Docker/test-results.json` e os logs em `MCPS/Docker/logs/`.
-
-Para validar a instalação dos CLIs dos agentes (versões e acessibilidade PATH):
-
-```powershell
-pwsh ./scripts/validate-agents.ps1
-```
-O arquivo `MCPS/Docker/agents-validation.json` terá os dados de validação.
-
- 
-## Licença
-
-MIT — sinta-se livre para adaptar e replicar.
+| Serviço | Variável | Status |
+|---------|----------|--------|
+| Tavily | `TAVILY_API_KEY` | ✅ |
+| Context7 | `CONTEXT7_API_KEY` | ✅ |
+| GitHub | `GITHUB_PERSONAL_ACCESS_TOKEN` | ✅ |
+| Google AI | `GOOGLE_API_KEY` | ✅ |
+| OpenRouter | `OPENROUTER_API_KEY` | ✅ |
 
 ---
+<<<<<<< HEAD
 Arquivo gerado automaticamente por uma tarefa de script.
 
 ---
@@ -262,3 +385,37 @@ Tempo Total: ~55min (vs. manual: 4-6h)
 **Ver detalhes completos:** [ORCHESTRATION.md](ORCHESTRATION.md)
 
 ---
+=======
+
+## 🖥️ Sistema
+
+| Componente | Valor |
+|------------|-------|
+| **PC** | DEIVIPC |
+| **OS** | Windows 10 Pro (Build 26220) |
+| **CPU** | AMD Ryzen 7 5700G (16 threads) |
+| **RAM** | 32GB |
+| **Docker** | v29.1.2 (Desktop + WSL2) |
+| **Node.js** | v25.2.1 |
+| **Python** | 3.14.2 |
+
+---
+
+## 📚 Referências
+
+- [Model Context Protocol](https://modelcontextprotocol.io)
+- [Docker MCP Catalog](https://hub.docker.com/catalogs/mcp)
+- [MCP Specification](https://spec.modelcontextprotocol.io)
+
+---
+
+## 📄 Licença
+
+MIT — Sinta-se livre para adaptar e replicar.
+
+---
+
+<p align="center">
+  <strong>Desenvolvido por Deivison Santana (@deivisan)</strong>
+</p>
+>>>>>>> 9bcc89338ae4400ffd68619f5e74883bf680ded0
