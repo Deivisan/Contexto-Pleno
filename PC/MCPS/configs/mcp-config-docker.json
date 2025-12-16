@@ -1,0 +1,87 @@
+{
+  "$comment": "Configuração MCP usando Docker containers - 2025-12-09",
+  "$info": "MCPs stdio usam 'docker run -i --rm', MCPs HTTP usam URL direta",
+  
+  "mcpServers": {
+    "context7": {
+      "$comment": "HTTP/SSE - Container rodando na porta 8080",
+      "type": "http",
+      "url": "http://localhost:8080/mcp",
+      "disabled": false,
+      "autoApprove": ["resolve-library-id", "get-library-docs"]
+    },
+    
+    "tavily": {
+      "$comment": "STDIO - Roda via docker run -i",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
+      "env": {
+        "TAVILY_API_KEY": "tvly-dev-..."
+      },
+      "disabled": false,
+      "autoApprove": ["tavily_search", "tavily_extract"]
+    },
+    
+    "memory": {
+      "$comment": "STDIO - Roda via docker run -i com volume persistente",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "mcp-memory-data:/data", "mcp/memory"],
+      "disabled": false,
+      "autoApprove": ["create_entities", "read_graph", "search_nodes"]
+    },
+    
+    "fetch": {
+      "$comment": "STDIO - Roda via docker run -i",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/fetch"],
+      "disabled": false,
+      "autoApprove": ["fetch"]
+    },
+    
+    "git": {
+      "$comment": "STDIO - Roda via docker run -i com token GitHub",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "mcp/git"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "github_pat_..."
+      },
+      "disabled": false,
+      "autoApprove": ["git_status", "git_log", "git_diff"]
+    },
+    
+    "filesystem": {
+      "$comment": "STDIO - Roda via docker run -i com volume montado",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "/c:/host:ro", "mcp/filesystem", "/host"],
+      "disabled": true,
+      "autoApprove": ["read_file", "list_directory"]
+    },
+    
+    "sequentialthinking": {
+      "$comment": "STDIO - Roda via docker run -i",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/sequentialthinking"],
+      "disabled": true,
+      "autoApprove": []
+    },
+    
+    "github": {
+      "$comment": "STDIO - GitHub MCP oficial",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "github_pat_..."
+      },
+      "disabled": true,
+      "autoApprove": []
+    },
+    
+    "playwright": {
+      "$comment": "STDIO - Automação de browser",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/playwright"],
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}

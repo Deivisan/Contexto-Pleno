@@ -1,0 +1,71 @@
+{
+  "mcpServers": {
+    "context7": {
+      "url": "http://localhost:8080/sse",
+      "disabled": false,
+      "autoApprove": ["resolve-library-id", "get-library-docs"]
+    },
+    
+    "tavily": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
+      "env": {
+        "TAVILY_API_KEY": "${TAVILY_API_KEY}"
+      },
+      "disabled": false,
+      "autoApprove": ["tavily-search", "tavily-extract"]
+    },
+    
+    "memory": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "mcp-memory-data:/data", "mcp/memory"],
+      "disabled": false,
+      "autoApprove": ["create_entities", "read_graph", "search_nodes"]
+    },
+    
+    "fetch": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/fetch"],
+      "disabled": false,
+      "autoApprove": ["fetch"]
+    },
+    
+    "filesystem": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "C:/Projetos:/workspace", "mcp/filesystem", "/workspace"],
+      "disabled": false,
+      "autoApprove": ["read_file", "list_directory"]
+    },
+    
+    "playwright": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/playwright"],
+      "disabled": false,
+      "autoApprove": ["playwright_navigate", "playwright_screenshot"]
+    },
+    
+    "sequentialthinking": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/sequentialthinking"],
+      "disabled": true,
+      "autoApprove": []
+    },
+    
+    "git": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "C:/Projetos:/workspace", "mcp/git", "-r", "/workspace/Contexto-Pleno"],
+      "disabled": true,
+      "autoApprove": []
+    },
+    
+    "github": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server", "stdio"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}

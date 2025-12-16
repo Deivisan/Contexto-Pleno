@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Configuração MCP Universal via Docker para Kiro - 2025-12-09",
+  "$info": "MCPs STDIO usam 'docker run -i --rm', Context7 usa HTTP/SSE",
+  
+  "mcpServers": {
+    "context7": {
+      "$comment": "HTTP/SSE - Container rodando na porta 8080 (docker run -d --name mcp-context7 -p 8080:8080 --restart unless-stopped mcp/context7)",
+      "type": "sse",
+      "url": "http://localhost:8080/sse",
+      "disabled": false,
+      "autoApprove": ["resolve-library-id", "get-library-docs"]
+    },
+    
+    "tavily": {
+      "$comment": "STDIO - Busca web avançada (4 tools: search, extract, crawl, map)",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
+      "env": {
+        "TAVILY_API_KEY": "tvly-dev-..."
+      },
+      "disabled": false,
+      "autoApprove": ["tavily-search", "tavily-extract", "tavily-crawl", "tavily-map"]
+    },
+    
+    "memory": {
+      "$comment": "STDIO - Memória persistente com Knowledge Graph (9 tools)",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "mcp-memory-data:/data", "mcp/memory"],
+      "disabled": false,
+      "autoApprove": ["create_entities", "read_graph", "search_nodes", "open_nodes"]
+    },
+    
+    "fetch": {
+      "$comment": "STDIO - HTTP requests para buscar conteúdo web",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/fetch"],
+      "disabled": false,
+      "autoApprove": ["fetch"]
+    },
+    
+    "filesystem": {
+      "$comment": "STDIO - Acesso ao sistema de arquivos (C:/Projetos montado em /workspace)",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "C:/Projetos:/workspace", "mcp/filesystem", "/workspace"],
+      "disabled": false,
+      "autoApprove": ["read_file", "list_directory", "search_files"]
+    },
+    
+    "playwright": {
+      "$comment": "STDIO - Automação de browser (navigate, click, fill, screenshot)",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/playwright"],
+      "disabled": false,
+      "autoApprove": ["playwright_navigate", "playwright_screenshot"]
+    },
+    
+    "sequentialthinking": {
+      "$comment": "STDIO - Raciocínio sequencial para problemas complexos",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "mcp/sequentialthinking"],
+      "disabled": true,
+      "autoApprove": []
+    },
+    
+    "git": {
+      "$comment": "STDIO - Git operations (precisa de volume com repo)",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-v", "C:/Projetos:/workspace", "mcp/git", "-r", "/workspace/Contexto-Pleno"],
+      "disabled": true,
+      "autoApprove": ["git_status", "git_log", "git_diff"]
+    },
+    
+    "github": {
+      "$comment": "STDIO - GitHub API oficial (precisa subcomando stdio)",
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server", "stdio"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "github_pat_..."
+      },
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}

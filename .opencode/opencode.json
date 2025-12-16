@@ -7,7 +7,7 @@
     },
     "tavily": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "-e", "TAVILY_API_KEY=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", "mcp/tavily"]
+      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "-e", "TAVILY_API_KEY=tvly-dev-...", "mcp/tavily"]
     },
     "memory": {
       "type": "local",
