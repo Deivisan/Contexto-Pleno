@@ -7,23 +7,23 @@
     },
     "tavily": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-network", "-e", "TAVILY_API_KEY=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", "mcp-tavily"]
+      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "-e", "TAVILY_API_KEY=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", "mcp/tavily"]
     },
     "memory": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-network", "-v", "mcp-memory-data:/data", "mcp-memory"]
+      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "-v", "mcp-memory-data:/data", "mcp/memory"]
     },
     "fetch": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-network", "mcp-fetch"]
+      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "mcp/fetch"]
     },
     "filesystem": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-network", "-v", "C:/:/c/host/c:ro", "mcp-filesystem"]
+      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "-v", "C:/Projetos:/workspace", "mcp/filesystem", "/workspace"]
     },
     "playwright": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-network", "mcp-playwright"]
+      "command": ["docker", "run", "-i", "--rm", "--network", "mcp-universal-network", "mcp/playwright"]
     }
   },
   "agent": {
@@ -33,5 +33,6 @@
     "devsab": {
       "file": "agent/devsab.md"
     }
-  }
+  },
+  "$comment": "MCPs configurados globalmente para OpenCode - Context7 ativo, STDIO sob demanda"
 }
