@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Pet Shop</title>
+    <style>
+        :root {
+            --matrix-green: #0F0;
+            --dark-bg: #000;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--matrix-green);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--matrix-green);
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px var(--matrix-green);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            border: 1px solid var(--matrix-green);
+            padding: 20px;
+            background: rgba(0, 20, 0, 0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--matrix-green);
+            padding-bottom: 10px;
+        }
+
+        .product-desc {
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* Glitch Button */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 0, 0.1);
+            animation: glitch-anim 0.3s infinite;
+        }
+
+        .btn::before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 1px 0 red;
+            top: 0;
+            color: var(--matrix-green);
+            background: black;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0); 
+            animation: noise-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .btn::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 blue;
+            top: 0;
+            color: var(--matrix-green);
+            background: black;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);   
+            animation: noise-anim 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes noise-anim {
+            0% { clip: rect(21px, 9999px, 15px, 0); }
+            5% { clip: rect(69px, 9999px, 86px, 0); }
+            10% { clip: rect(3px, 9999px, 57px, 0); }
+            15% { clip: rect(67px, 9999px, 16px, 0); }
+            20% { clip: rect(81px, 9999px, 20px, 0); }
+            25% { clip: rect(10px, 9999px, 6px, 0); }
+            30% { clip: rect(54px, 9999px, 78px, 0); }
+            35% { clip: rect(22px, 9999px, 5px, 0); }
+            40% { clip: rect(33px, 9999px, 2px, 0); }
+            45% { clip: rect(98px, 9999px, 13px, 0); }
+            50% { clip: rect(12px, 9999px, 45px, 0); }
+            55% { clip: rect(65px, 9999px, 81px, 0); }
+            60% { clip: rect(4px, 9999px, 91px, 0); }
+            65% { clip: rect(28px, 9999px, 9px, 0); }
+            70% { clip: rect(76px, 9999px, 24px, 0); }
+            75% { clip: rect(55px, 9999px, 64px, 0); }
+            80% { clip: rect(11px, 9999px, 51px, 0); }
+            85% { clip: rect(92px, 9999px, 3px, 0); }
+            90% { clip: rect(43px, 9999px, 28px, 0); }
+            95% { clip: rect(59px, 9999px, 77px, 0); }
+            100% { clip: rect(32px, 9999px, 18px, 0); }
+        }
+
+        @keyframes noise-anim-2 {
+            0% { clip: rect(11px, 9999px, 95px, 0); }
+            5% { clip: rect(49px, 9999px, 26px, 0); }
+            10% { clip: rect(23px, 9999px, 87px, 0); }
+            15% { clip: rect(97px, 9999px, 66px, 0); }
+            20% { clip: rect(11px, 9999px, 40px, 0); }
+            25% { clip: rect(80px, 9999px, 36px, 0); }
+            30% { clip: rect(24px, 9999px, 18px, 0); }
+            35% { clip: rect(72px, 9999px, 65px, 0); }
+            40% { clip: rect(13px, 9999px, 92px, 0); }
+            45% { clip: rect(38px, 9999px, 43px, 0); }
+            50% { clip: rect(52px, 9999px, 15px, 0); }
+            55% { clip: rect(25px, 9999px, 31px, 0); }
+            60% { clip: rect(84px, 9999px, 51px, 0); }
+            65% { clip: rect(18px, 9999px, 49px, 0); }
+            70% { clip: rect(96px, 9999px, 64px, 0); }
+            75% { clip: rect(35px, 9999px, 94px, 0); }
+            80% { clip: rect(41px, 9999px, 21px, 0); }
+            85% { clip: rect(62px, 9999px, 73px, 0); }
+            90% { clip: rect(23px, 9999px, 88px, 0); }
+            95% { clip: rect(19px, 9999px, 57px, 0); }
+            100% { clip: rect(82px, 9999px, 38px, 0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--matrix-green);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .products-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Matrix Pet Shop</h1>
+            <p class="subtitle">Enter the Real World for your Pets</p>
+        </header>
+
+        <section class="products-grid">
+            <div class="product-card">
+                <div class="product-title">Red Pill Dog Food</div>
+                <p class="product-desc">Acorde seu cão da simulação. Nutrição 100% orgânica e real.</p>
+                <span class="price">R$ 49,90</span>
+                <button class="btn" data-text="COMPRAR AGORA">COMPRAR AGORA</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-title">Trinity Cat Toys</div>
+                <p class="product-desc">Brinquedos ágeis que desafiam a gravidade. Seu gato vai se mover como um agente.</p>
+                <span class="price">R$ 29,90</span>
+                <button class="btn" data-text="COMPRAR AGORA">COMPRAR AGORA</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-title">Morpheus Sleeping Bed</div>
+                <p class="product-desc">O conforto supremo. Se você tomar a pílula azul, acordará na sua cama e acreditará no que quiser.</p>
+                <span class="price">R$ 119,90</span>
+                <button class="btn" data-text="COMPRAR AGORA">COMPRAR AGORA</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-title">Oracle's Treats</div>
+                <p class="product-desc">Biscoitos que preveem o futuro: seu pet vai pedir mais antes mesmo de acabar.</p>
+                <span class="price">R$ 15,90</span>
+                <button class="btn" data-text="COMPRAR AGORA">COMPRAR AGORA</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-title">Neo's Collar</div>
+                <p class="product-desc">A coleira do escolhido. Controle a Matrix do parque com estilo.</p>
+                <span class="price">R$ 55,00</span>
+                <button class="btn" data-text="COMPRAR AGORA">COMPRAR AGORA</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-title">Agent Smith Repellent</div>
+                <p class="product-desc">Spray anti-pulgas e carrapatos. Elimine as cópias indesejadas.</p>
+                <span class="price">R$ 34,50</span>
+                <button class="btn" data-text="COMPRAR AGORA">COMPRAR AGORA</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Matrix Pet Shop. "There is no spoon."</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Configuração tela cheia
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        setInterval(draw, 30);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // Recalcular colunas
+            const newColumns = canvas.width / fontSize;
+            rainDrops.length = 0; 
+            for (let x = 0; x < newColumns; x++) {
+                rainDrops[x] = 1;
+            }
+        });
+    </script>
+</body>
+</html>

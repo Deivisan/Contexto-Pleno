@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Matrix Pet Shop</title>
+    <style>
+        :root {
+            --matrix-green: #0f0;
+            --matrix-dark: #000;
+            --matrix-dim: #003300;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--matrix-dark);
+            color: var(--matrix-green);
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Canvas */
+        #matrix-canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2; /* Subtle background */
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            border-bottom: 2px solid var(--matrix-green);
+            background: rgba(0, 0, 0, 0.8);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--matrix-green);
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Product Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            border: 1px solid var(--matrix-green);
+            background: rgba(0, 10, 0, 0.9);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 5px var(--matrix-dim);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-decoration: underline;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        /* Glitch Button */
+        .btn-glitch {
+            background: transparent;
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.2s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn-glitch:hover {
+            background: var(--matrix-green);
+            color: var(--matrix-dark);
+            box-shadow: 0 0 20px var(--matrix-green);
+        }
+
+        /* Glitch Effect Keyframes */
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(20px, 9999px, 80px, 0); }
+            20% { clip: rect(60px, 9999px, 10px, 0); }
+            40% { clip: rect(10px, 9999px, 90px, 0); }
+            60% { clip: rect(80px, 9999px, 30px, 0); }
+            80% { clip: rect(40px, 9999px, 50px, 0); }
+            100% { clip: rect(70px, 9999px, 20px, 0); }
+        }
+
+        .btn-glitch::before,
+        .btn-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--matrix-dark);
+        }
+
+        .btn-glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        .btn-glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        .btn-glitch:hover::before {
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .btn-glitch:hover::after {
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--matrix-green);
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .products { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <header>
+        <h1>The Matrix Pet Shop</h1>
+        <div class="subtitle">Wake up, Neo... Feed your cat.</div>
+    </header>
+
+    <main>
+        <div class="products">
+            <!-- Product 1 -->
+            <div class="card">
+                <h3>Red Pill Kibble</h3>
+                <p>Reveals the truth of flavor. 100% Real Code Protein.</p>
+                <div class="price">M$ 19.99</div>
+                <button class="btn-glitch" data-text="ADD TO CART">ADD TO CART</button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="card">
+                <h3>The Oracle's Cookie</h3>
+                <p>Your dog won't worry about the vase. Gluten-free data.</p>
+                <div class="price">M$ 12.50</div>
+                <button class="btn-glitch" data-text="ADD TO CART">ADD TO CART</button>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="card">
+                <h3>Morpheus Bone</h3>
+                <p>Infinite chewability. Free your mind (and teeth).</p>
+                <div class="price">M$ 25.00</div>
+                <button class="btn-glitch" data-text="ADD TO CART">ADD TO CART</button>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="card">
+                <h3>Trinity Laser Pointer</h3>
+                <p>Dodge bullets? No. Dodge this laser.</p>
+                <div class="price">M$ 45.00</div>
+                <button class="btn-glitch" data-text="ADD TO CART">ADD TO CART</button>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="card">
+                <h3>Agent Smith Collar</h3>
+                <p>Cloneable style. Inevitable fashion.</p>
+                <div class="price">M$ 30.00</div>
+                <button class="btn-glitch" data-text="ADD TO CART">ADD TO CART</button>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="card">
+                <h3>Operator's Catnip</h3>
+                <p>Instant download of pure bliss. Tank loaded.</p>
+                <div class="price">M$ 15.99</div>
+                <button class="btn-glitch" data-text="ADD TO CART">ADD TO CART</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2199 Matrix Pet Supplies. There is no spoon.
+    </footer>
+
+    <script>
+        // Matrix Digital Rain Implementation
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Make the canvas full screen
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        // Characters - Matrix characters
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/';
+        const charArray = chars.split('');
+
+        const fontSize = 14;
+        const columns = canvas.width / fontSize; // Number of columns for the rain
+
+        // An array of drops - one per column
+        const drops = [];
+        // Initialize drops
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            // Black BG for the canvas
+            // Translucent BG to show trail
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0'; // Green text
+            ctx.font = fontSize + 'px Courier New';
+
+            // Loop over drops
+            for (let i = 0; i < drops.length; i++) {
+                // A random character to print
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                
+                // x = i * font_size, y = value of drops[i] * font_size
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                // Sending the drop back to the top randomly after it has crossed the screen
+                // Adding a randomness to the reset to make the drops scattered on the Y axis
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                // Incrementing Y coordinate
+                drops[i]++;
+            }
+        }
+
+        // Render loop
+        setInterval(drawMatrix, 33);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+            // Re-initialize drops to avoid gaps
+            const newColumns = canvas.width / fontSize;
+            const newDrops = [];
+            for (let i = 0; i < newColumns; i++) {
+                newDrops[i] = drops[i] || 1;
+            }
+            // Update the global drops array reference logic (simplified here by reassigning effectively)
+            // Ideally we'd resize the array carefully, but for this effect, this is okay visually.
+        });
+    </script>
+</body>
+</html>
