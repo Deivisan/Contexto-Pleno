@@ -10,7 +10,7 @@
 ## 📊 LIVE STATUS (Atualização Automática)
 
 ```yaml
-Última Atualização: 2025-12-15 17:45:35
+Última Atualização: 2025-12-15 20:20:20
 
 # Agentes CLI
 DevSan:
@@ -19,8 +19,8 @@ DevSan:
   
   task: Testes criados em testes-agentes; MCP env aplicadas
 Gemini-CLI:
-  status: ❌ Broken (binário não acessível)
-  issue: "Arquivos .gemini.cmd estranhos, npm install corrompeu PATH"
+  status: ✅ Operational (Termux Native)
+  mode: Native Node MCPs
   workaround: Pendente reinstalação ou wrapper PowerShell
   priority: Alta
   
