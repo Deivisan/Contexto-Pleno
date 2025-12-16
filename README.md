@@ -1,308 +1,70 @@
 # 🚀 Contexto-Pleno — Hub Universal de Agentes IA
 
-> **Repositório central para configuração e orquestração de agentes IA com MCPs Docker universais.**
+> **Repositório central para configuração e orquestração de agentes IA com MCPs (Docker e Nativo).**
 
 [![Status](https://img.shields.io/badge/Status-Ativo-success)](/)
-[![MCPs](https://img.shields.io/badge/MCPs-9%20Configurados-blue)](/)
-[![Docker](https://img.shields.io/badge/Docker-Containers-2496ED)](/)
+[![MCPs](https://img.shields.io/badge/MCPs-Universal-blue)](/)
+[![Platform](https://img.shields.io/badge/Plataforma-Windows%20%7C%20Android-green)](/)
 
 ---
 
 ## 📋 Índice
 
 - [Visão Geral](#-visão-geral)
-- [Arquitetura](#-arquitetura)
-- [Quick Start](#-quick-start)
+- [Arquitetura Híbrida](#-arquitetura-híbrida)
+- [📱 Suporte Termux](#-suporte-termux-android)
+- [🧠 Orquestração Multi-Agente](#-orquestração-multi-agente-novo)
 - [MCPs Disponíveis](#-mcps-disponíveis)
-- [Configuração por IDE/Agente](#-configuração-por-ideagente)
 - [Estrutura do Repositório](#-estrutura-do-repositório)
-- [Scripts Úteis](#-scripts-úteis)
-- [API Keys](#-api-keys)
 
 ---
 
 ## 🎯 Visão Geral
 
-Este repositório centraliza a configuração de **MCPs (Model Context Protocol)** via **Docker containers** para uso universal em múltiplos agentes e IDEs:
+Este repositório centraliza a configuração de **MCPs (Model Context Protocol)** para uso universal em múltiplos agentes e IDEs, suportando tanto ambientes desktop (Docker) quanto mobile (Termux/Node.js).
 
 ### 🤖 Agentes CLI Suportados
 | Agente | Versão | Status |
 |--------|--------|--------|
-| **Gemini CLI** | 0.19.4 | ✅ Instalado |
-| **Claude Code** | 2.0.60 | ✅ Instalado |
-| **Kilocode CLI** | 0.12.1 | ✅ Instalado |
-| **GitHub Copilot CLI** | 0.0.367 | ✅ Instalado |
-
-### 💻 IDEs Suportadas
-| IDE | MCP Support | Documentação |
-|-----|-------------|--------------|
-| **Kiro (AWS)** | ✅ Nativo | [docs/ides/KIRO.md](docs/ides/KIRO.md) |
-| **VS Code / Insiders** | ✅ Via Copilot | [docs/ides/VSCODE.md](docs/ides/VSCODE.md) |
-| **Windsurf** | ✅ Nativo | [docs/ides/WINDSURF.md](docs/ides/WINDSURF.md) |
+| **Gemini CLI** | v0.21.0 | ✅ Instalado |
+| **Qwen Code** | v0.5.0 | ✅ Instalado |
+| **Kilocode CLI** | v0.10.2 | ✅ Instalado |
+| **GitHub Copilot CLI** | v1.2.0 | ✅ Instalado |
 
 ---
 
-## 🏗️ Arquitetura
+## 🏗️ Arquitetura Híbrida
 
+O sistema opera em dois modos distintos, compartilhando a mesma "memória" e configurações:
+
+### Modo PC (Windows/Docker)
+Isolamento total via containers.
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                     DOCKER CONTAINERS                            │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐       │
-│  │ context7  │ │  tavily   │ │  memory   │ │   fetch   │       │
-│  │ HTTP:8080 │ │   STDIO   │ │   STDIO   │ │   STDIO   │       │
-│  └───────────┘ └───────────┘ └───────────┘ └───────────┘       │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐       │
-│  │filesystem │ │playwright │ │    git    │ │  github   │       │
-│  │   STDIO   │ │   STDIO   │ │   STDIO   │ │   STDIO   │       │
-│  └───────────┘ └───────────┘ └───────────┘ └───────────┘       │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-              ┌───────────────┼───────────────┐
-              │               │               │
-              ▼               ▼               ▼
-        ┌──────────┐   ┌──────────┐   ┌──────────┐
-        │   Kiro   │   │  VS Code │   │ Windsurf │
-        │   (AWS)  │   │ Insiders │   │(Codeium) │
-        └──────────┘   └──────────┘   └──────────┘
-              │               │               │
-              ▼               ▼               ▼
-        ┌──────────┐   ┌──────────┐   ┌──────────┐
-        │  Gemini  │   │  Claude  │   │ Kilocode │
-        │   CLI    │   │   Code   │   │   CLI    │
-        └──────────┘   └──────────┘   └──────────┘
+[Agentes] --> [Docker MCPs: Context7, Tavily, Memory...] --> [Sistema]
+```
+
+### Modo Mobile (Android/Termux)
+Execução nativa ("Bare Metal") via Node.js para eficiência.
+```
+[Agentes] --> [Native Node MCPs: Context7, Tavily, Memory...] --> [Sistema]
 ```
 
 ---
 
-## ⚡ Quick Start
+## 📱 Suporte Termux (Android)
 
-### 1. Pré-requisitos
+Esta seção detalha a operação no ambiente mobile.
 
-```powershell
-# Verificar Docker
-docker --version  # v29.1.2+
+**Setup Rápido:**
+1. Instale Termux, Node.js, Python, Git e GH CLI.
+2. Clone este repositório: `git clone ...`
+3. Execute a validação: `./termux/scripts/validate-env.sh`
+4. Sincronize configs: `./termux/scripts/sync-config.sh`
 
-# Verificar Node.js
-node --version    # v25.2.1+
-```
-
-### 2. Iniciar Container Context7 (HTTP/SSE)
-
-```powershell
-# Container sempre rodando na porta 8080
-docker run -d `
-  --name mcp-context7 `
-  -p 8080:8080 `
-  --restart unless-stopped `
-  mcp/context7:latest
-```
-
-### 3. Criar Volume para Memory
-
-```powershell
-docker volume create mcp-memory-data
-```
-
-### 4. Aplicar Configuração
-
-```powershell
-# Copiar config universal para Kiro
-Copy-Item "MCPS/configs/universal-docker.json" "$env:USERPROFILE\.kiro\settings\mcp.json"
-
-# Ou para VS Code
-Copy-Item "MCPS/configs/universal-docker.json" ".vscode/mcp.json"
-```
-
-### 5. Verificar
-
-```powershell
-# Ver containers rodando
-docker ps --filter "name=mcp"
-
-# Testar endpoint Context7
-curl http://localhost:8080/sse
-```
-
----
-
-## 🐳 MCPs Disponíveis
-
-| MCP | Imagem | Tipo | Status | Tools |
-|-----|--------|------|--------|-------|
-| **Context7** | `mcp/context7` | HTTP/SSE | ✅ Ativo | 2 |
-| **Tavily** | `mcp/tavily` | STDIO | ✅ Ativo | 4 |
-| **Memory** | `mcp/memory` | STDIO | ✅ Ativo | 9 |
-| **Fetch** | `mcp/fetch` | STDIO | ✅ Ativo | 1 |
-| **Filesystem** | `mcp/filesystem` | STDIO | ✅ Ativo | 7 |
-| **Playwright** | `mcp/playwright` | STDIO | ✅ Ativo | 20+ |
-| **Sequential Thinking** | `mcp/sequentialthinking` | STDIO | ⏸️ Disponível | - |
-| **Git** | `mcp/git` | STDIO | ⏸️ Disponível | - |
-| **GitHub** | `ghcr.io/github/github-mcp-server` | STDIO | ⏸️ Disponível | 50+ |
-
-> 📖 Documentação completa: [docs/mcps/DOCKER-MCPS.md](docs/mcps/DOCKER-MCPS.md)
-
----
-
-## ⚙️ Configuração por IDE/Agente
-
-### Kiro (AWS)
-
-```json
-// ~/.kiro/settings/mcp.json
-{
-  "mcpServers": {
-    "tavily": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
-      "env": { "TAVILY_API_KEY": "sua-key" }
-    },
-    "context7": {
-      "url": "http://localhost:8080/sse"
-    }
-  }
-}
-```
-
-> 📖 Guia completo: [docs/ides/KIRO.md](docs/ides/KIRO.md)
-
-### VS Code / Insiders
-
-```json
-// .vscode/mcp.json
-{
-  "servers": {
-    "tavily": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
-      "env": { "TAVILY_API_KEY": "sua-key" }
-    }
-  }
-}
-```
-
-> 📖 Guia completo: [docs/ides/VSCODE.md](docs/ides/VSCODE.md)
-
-### Windsurf
-
-```json
-// ~/.codeium/windsurf/mcp_config.json
-{
-  "mcpServers": {
-    "tavily": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm", "-e", "TAVILY_API_KEY", "mcp/tavily"],
-      "env": { "TAVILY_API_KEY": "sua-key" }
-    }
-  }
-}
-```
-
-> 📖 Guia completo: [docs/ides/WINDSURF.md](docs/ides/WINDSURF.md)
-
-### Agentes CLI
-
-| Agente | Config File | Guia |
-|--------|-------------|------|
-| Gemini CLI | `.gemini/settings.json` | [docs/agents/GEMINI-CLI.md](docs/agents/GEMINI-CLI.md) |
-| Claude Code | `~/.claude.json` | [docs/agents/CLAUDE-CODE.md](docs/agents/CLAUDE-CODE.md) |
-| Kilocode | `.kilocode/mcp.json` | [docs/agents/KILOCODE.md](docs/agents/KILOCODE.md) |
-| Copilot CLI | `~/.copilot/config.json` | [docs/agents/GITHUB-COPILOT-CLI.md](docs/agents/GITHUB-COPILOT-CLI.md) |
-
----
-
-## 📁 Estrutura do Repositório
-
-```
-Contexto-Pleno/
-├── 📄 README.md                    # Este arquivo
-├── 📄 ROADMAP-MCP-UNIVERSAL.md     # Roadmap e progresso
-├── 📄 PC-Context.md                # Contexto do PC
-├── 📄 Banco-Api.md                 # Central de API keys
-│
-├── 📁 docs/                        # Documentação
-│   ├── 📁 ides/                    # Guias por IDE
-│   │   ├── KIRO.md
-│   │   ├── VSCODE.md
-│   │   └── WINDSURF.md
-│   ├── 📁 agents/                  # Guias por agente CLI
-│   │   ├── GEMINI-CLI.md
-│   │   ├── CLAUDE-CODE.md
-│   │   ├── KILOCODE.md
-│   │   └── GITHUB-COPILOT-CLI.md
-│   └── 📁 mcps/                    # Documentação MCPs
-│       └── DOCKER-MCPS.md
-│
-├── 📁 MCPS/                        # Configurações MCP
-│   ├── 📁 configs/                 # Configs universais
-│   │   ├── universal-docker.json   # Config principal
-│   │   └── .env                    # Variáveis de ambiente
-│   └── 📁 Docker/                  # Arquivos Docker
-│       ├── docker-compose.yml
-│       ├── .env
-│       └── test-results-*.md
-│
-├── 📁 scripts/                     # Scripts de automação
-│   ├── start-mcp-context7.ps1      # Auto-start Context7
-│   ├── setup-windows.ps1           # Setup inicial
-│   ├── validate-agents.ps1         # Validar agentes
-│   └── test-mcps.ps1               # Testar MCPs
-│
-└── 📁 Arquivos de Agentes          # Contexto por agente
-    ├── DevSan.md                   # Core personality
-    ├── Gemini.md
-    ├── KILOCODE.md
-    └── QWEN.md
-```
-
----
-
-## 🛠️ Scripts Úteis
-
-### Iniciar Context7
-
-```powershell
-pwsh ./scripts/start-mcp-context7.ps1
-```
-
-### Validar Agentes Instalados
-
-```powershell
-pwsh ./scripts/validate-agents.ps1
-```
-
-### Testar MCPs
-
-```powershell
-pwsh ./scripts/test-mcps.ps1
-```
-
-### Setup Completo Windows
-
-```powershell
-pwsh ./scripts/setup-windows.ps1
-```
-
----
-
-## 🔑 API Keys
-
-As API keys estão centralizadas em:
-- **Arquivo principal:** `Banco-Api.md`
-- **Variáveis de ambiente:** `MCPS/configs/.env`
-
-### Keys Configuradas
-
-| Serviço | Variável | Status |
-|---------|----------|--------|
-| Tavily | `TAVILY_API_KEY` | ✅ |
-| Context7 | `CONTEXT7_API_KEY` | ✅ |
-| GitHub | `GITHUB_PERSONAL_ACCESS_TOKEN` | ✅ |
-| Google AI | `GOOGLE_API_KEY` | ✅ |
-| OpenRouter | `OPENROUTER_API_KEY` | ✅ |
-
----
-<<<<<<< HEAD
-Arquivo gerado automaticamente por uma tarefa de script.
+**Destaques Termux:**
+- **Orquestrador Node.js:** Módulo próprio em `termux/orchestrator/` para gerenciar agentes.
+- **MCPs Nativos:** Sem overhead de Docker.
+- **Protocolo Universal:** `termux/treinamento/UNIVERSAL_AGENT_PROTOCOL.md`.
 
 ---
 
@@ -316,96 +78,62 @@ Este repositório agora inclui **orquestração inteligente de múltiplos agente
 
 ### Agentes Ativos
 
-1. **DevSan** - Orquestrador raiz (A.G.I. agentica, auto-aprovação total)
-2. **Gemini-CLI** - Planejador estratégico (⚠️ temporariamente broken)
-3. **Qwen-Code** - Executor de código (✅ funcional)
-4. **Kilocode** - Automação navegador (✅ funcional)
-5. **GitHub Copilot CLI** - GitHub ops (⚠️ parcial, pendente auth)
-
-### MCPs Docker (10 containers)
-
-- **Context7** (8080) - Documentação AI
-- **Agent MCP** (4000) - Orquestração local
-- **Firecrawl** (6000) - Web scraping avançado
-- **Tavily** (3000) - Busca web inteligente
-- **Filesystem** (7000) - Manipulação arquivos
-- **Fetch**, **DockerHub**, **Desktop-Commander**, **YouTube-Transcript**, **Gateway**
-
-### Comandos Customizados
-
-Implementados em `~/.gemini/commands/`:
-
-```powershell
-# Delegação automática
-/delegate-to-qwen "Implementar API REST /users"
-/delegate-to-kilocode "Criar testes E2E login flow"
-
-# Status tracking
-/update-status Qwen "Implementando backend - 70%"
-
-# Relatórios
-/project-summary
-```
+1. **Gemini-CLI** - Planejador estratégico e Orquestrador (✅ Termux Native)
+2. **Qwen-Code** - Executor de código (✅ Termux Native)
+3. **Kilocode** - Automação navegador (✅ Termux Native)
+4. **GitHub Copilot CLI** - Consultas rápidas (✅ Termux Native)
 
 ### Workflow Exemplo
 
 ```yaml
 Tarefa: "Criar dashboard web com autenticação JWT"
 
-DevSan (Raiz):
+Gemini (Orquestrador):
   - Lê ORCHESTRATION.md
-  - Planeja em fases (arquitetura → backend → frontend → deploy)
-  
-Gemini (Planejamento):
-  - Especifica ERD, API endpoints, componentes React
+  - Planeja em fases (arquitetura → backend → frontend)
   
 Qwen (Backend):
   - Implementa Node.js + MongoDB com testes
-  - Atualiza LIVE STATUS: 25% → 50% → 75% → 100%
   
 Kilocode (Frontend):
   - Scaffolds React app, cria componentes
-  - Testes E2E com Playwright
   
 Copilot (GitHub):
-  - Cria branch, commit, PR automaticamente
-  
-Tempo Total: ~55min (vs. manual: 4-6h)
+  - Sugere comandos git e CI/CD
 ```
 
-### Status Atual (15/12/2025)
-
-- ✅ ORCHESTRATION.md criado (550+ linhas)
-- ✅ Slash commands implementados (4 scripts PowerShell)
-- ✅ MCPs Docker mapeados e documentados
-- ⚠️ Gemini-CLI broken (binário não acessível)
-- ⚠️ Copilot CLI pendente (gh auth + extension)
-- 📋 Próximo: Resolver agentes broken, testar delegação YOLO completa
-
-**Ver detalhes completos:** [ORCHESTRATION.md](ORCHESTRATION.md)
-
 ---
-=======
 
-## 🖥️ Sistema
+## 🐳 MCPs Disponíveis (Universal)
 
-| Componente | Valor |
-|------------|-------|
-| **PC** | DEIVIPC |
-| **OS** | Windows 10 Pro (Build 26220) |
-| **CPU** | AMD Ryzen 7 5700G (16 threads) |
-| **RAM** | 32GB |
-| **Docker** | v29.1.2 (Desktop + WSL2) |
-| **Node.js** | v25.2.1 |
-| **Python** | 3.14.2 |
+| MCP | Tipo | Status | Função |
+|-----|------|--------|--------|
+| **Context7** | HTTP/SSE | ✅ Ativo | Documentação Técnica |
+| **Tavily** | STDIO | ✅ Ativo | Busca Web |
+| **Memory** | STDIO | ✅ Ativo | Grafo de Conhecimento |
+| **Git** | STDIO | ✅ Ativo | Controle de Versão |
+| **Filesystem** | STDIO | ✅ Ativo | Acesso a Arquivos |
+
+> 📖 Documentação completa: [docs/mcps/DOCKER-MCPS.md](docs/mcps/DOCKER-MCPS.md)
 
 ---
 
-## 📚 Referências
+## 📁 Estrutura do Repositório
 
-- [Model Context Protocol](https://modelcontextprotocol.io)
-- [Docker MCP Catalog](https://hub.docker.com/catalogs/mcp)
-- [MCP Specification](https://spec.modelcontextprotocol.io)
+```
+Contexto-Pleno/
+├── 📄 README.md                    # Este arquivo
+├── 📄 ORCHESTRATION.md             # Cérebro da Operação
+├── 📁 termux/                      # Adaptação Android (NOVO)
+│   ├── 📁 configs/                 # Configs nativas
+│   ├── 📁 scripts/                 # Scripts Bash
+│   ├── 📁 orchestrator/            # Engine Node.js
+│   └── 📁 treinamento/             # Protocolos e Relatórios
+│
+├── 📁 MCPS/                        # Configurações Docker (PC)
+├── 📁 docs/                        # Documentação Geral
+└── 📁 Agentes/                     # Personas dos Agentes
+```
 
 ---
 
@@ -413,9 +141,6 @@ Tempo Total: ~55min (vs. manual: 4-6h)
 
 MIT — Sinta-se livre para adaptar e replicar.
 
----
-
 <p align="center">
   <strong>Desenvolvido por Deivison Santana (@deivisan)</strong>
 </p>
->>>>>>> 9bcc89338ae4400ffd68619f5e74883bf680ded0
