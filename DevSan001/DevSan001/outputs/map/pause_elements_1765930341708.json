@@ -1,0 +1,164 @@
+[
+  {
+    "tag": "DIV",
+    "text": "Sign in Sign up What do you want to know? Auto Grok Imagine Upgrades Generate videos with built-in audio - plus enhanced lifelike motion and character consistency Sign up Sign in By messaging Grok, you agree to our Terms and Privacy Policy.",
+    "ariaLabel": null,
+    "testid": "drop-container",
+    "id": null,
+    "classes": "flex w-full h-full",
+    "href": null
+  },
+  {
+    "tag": "DIV",
+    "text": "Sign in Sign up What do you want to know? Auto Grok Imagine Upgrades Generate videos with built-in audio - plus enhanced lifelike motion and character consistency Sign up Sign in By messaging Grok, you agree to our Terms and Privacy Policy.",
+    "ariaLabel": null,
+    "testid": "drop-ui",
+    "id": null,
+    "classes": "flex w-full h-full",
+    "href": null
+  },
+  {
+    "tag": "A",
+    "text": "",
+    "ariaLabel": "Home page",
+    "testid": null,
+    "id": null,
+    "classes": "rounded-lg focus:outline-none focus-visible:ring-1 focus-visible:ring-ring ms-2 me-[0.5]",
+    "href": "https://grok.com/"
+  },
+  {
+    "tag": "BUTTON",
+    "text": "",
+    "ariaLabel": "Settings",
+    "testid": null,
+    "id": "radix-_r_60_",
+    "classes": "items-center justify-center gap-2 whitespace-nowrap text-sm font-medium leading-[normal] cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none text-fg-secondary hover:bg-button-ghost-hover hover:text-fg-primary disabled:hover:bg-transparent border border-transparent rounded-full overflow-hidden h-10 w-10 p-2 hidden @sm:flex",
+    "href": null
+  },
+  {
+    "tag": "A",
+    "text": "Sign in",
+    "ariaLabel": null,
+    "testid": null,
+    "id": null,
+    "classes": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium leading-[normal] cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none border border-border-l2 text-fg-primary hover:bg-button-ghost-hover disabled:hover:bg-transparent h-10 px-4 py-2 rounded-full block",
+    "href": "https://grok.com/sign-in"
+  },
+  {
+    "tag": "A",
+    "text": "Sign up",
+    "ariaLabel": null,
+    "testid": null,
+    "id": null,
+    "classes": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium leading-[normal] cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none bg-button-filled text-fg-invert hover:bg-button-filled-hover disabled:hover:bg-button-filled h-10 px-4 py-2 rounded-full block",
+    "href": "https://grok.com/sign-up"
+  },
+  {
+    "tag": "TEXTAREA",
+    "text": "",
+    "ariaLabel": "Ask Grok anything",
+    "testid": null,
+    "id": null,
+    "classes": "w-full px-2 leading-7 bg-transparent focus:outline-none text-fg-primary align-bottom min-h-14 py-4 my-0 mb-0",
+    "href": null
+  },
+  {
+    "tag": "BUTTON",
+    "text": "",
+    "ariaLabel": "Please login to attach files",
+    "testid": null,
+    "id": "radix-_r_6b_",
+    "classes": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium leading-[normal] cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none text-fg-primary hover:bg-button-ghost-hover disabled:hover:bg-transparent border border-transparent h-10 w-10 rounded-full group/attach-button",
+    "href": null
+  },
+  {
+    "tag": "BUTTON",
+    "text": "Auto",
+    "ariaLabel": "Model select",
+    "testid": null,
+    "id": "model-select-trigger",
+    "classes": "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none hover:bg-button-ghost-hover disabled:hover:bg-transparent border border-transparent h-10 py-1.5 text-sm rounded-full text-primary px-3.5 focus:outline-none aria-expanded:bg-button-ghost-hover",
+    "href": null
+  },
+  {
+    "tag": "BUTTON",
+    "text": "Auto",
+    "ariaLabel": "Model select",
+    "testid": null,
+    "id": "model-select-trigger",
+    "classes": "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none hover:bg-button-ghost-hover disabled:hover:bg-transparent border border-transparent h-10 py-1.5 text-sm rounded-full text-primary px-3.5 focus:outline-none aria-expanded:bg-button-ghost-hover",
+    "href": null
+  },
+  {
+    "tag": "BUTTON",
+    "text": "",
+    "ariaLabel": "Enter voice mode",
+    "testid": null,
+    "id": null,
+    "classes": "group flex flex-col justify-center rounded-full focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+    "href": null
+  },
+  {
+    "tag": "BUTTON",
+    "text": "",
+    "ariaLabel": "Submit",
+    "testid": null,
+    "id": null,
+    "classes": "group flex flex-col justify-center rounded-full focus:outline-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+    "href": null
+  },
+  {
+    "tag": "A",
+    "text": "Sign up",
+    "ariaLabel": null,
+    "testid": null,
+    "id": null,
+    "classes": "inline-flex items-center justify-center whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none bg-button-filled text-fg-invert hover:bg-button-filled-hover disabled:hover:bg-button-filled h-8 gap-1.5 px-3 rounded-full font-semibold text-sm",
+    "href": "https://grok.com/sign-up?return_to=%2Fimagine"
+  },
+  {
+    "tag": "A",
+    "text": "Sign in",
+    "ariaLabel": null,
+    "testid": null,
+    "id": null,
+    "classes": "inline-flex items-center justify-center whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none border border-border-l2 text-fg-primary hover:bg-button-ghost-hover disabled:hover:bg-transparent h-8 gap-1.5 px-3 rounded-full font-semibold text-sm",
+    "href": "https://grok.com/sign-in?return_to=%2Fimagine"
+  },
+  {
+    "tag": "BUTTON",
+    "text": "",
+    "ariaLabel": "Close",
+    "testid": null,
+    "id": null,
+    "classes": "inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-100 [&_svg]:shrink-0 select-none hover:text-fg-primary disabled:hover:bg-transparent border border-transparent h-6 px-2.5 text-xs rounded-full overflow-hidden w-6 dark font-bold text-primary absolute -top-2 -end-2 bg-surface-l2 hover:bg-surface-l4",
+    "href": null
+  },
+  {
+    "tag": "A",
+    "text": "Terms",
+    "ariaLabel": null,
+    "testid": null,
+    "id": null,
+    "classes": "text-primary",
+    "href": "https://x.ai/legal/terms-of-service"
+  },
+  {
+    "tag": "A",
+    "text": "Privacy Policy",
+    "ariaLabel": null,
+    "testid": null,
+    "id": null,
+    "classes": "text-primary",
+    "href": "https://x.ai/legal/privacy-policy"
+  },
+  {
+    "tag": "SECTION",
+    "text": "",
+    "ariaLabel": "Notifications alt+T",
+    "testid": null,
+    "id": null,
+    "classes": null,
+    "href": null
+  }
+]

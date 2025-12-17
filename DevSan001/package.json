@@ -1,0 +1,21 @@
+{
+  "name": "devsan001",
+  "version": "0.1.0",
+  "description": "DevSan001 - backend-first AGI skeleton",
+  "main": "src/cli.js",
+  "scripts": {
+    "start": "node src/cli.js",
+    "lint": "echo 'no lint configured'"
+  },
+  "engines": {
+    "node": ">=25"
+  },
+  "dependencies": {
+    "2captcha": "^3.0.5-2",
+    "dotenv": "^16.1.4",
+    "minimist": "^1.2.8",
+    "playwright": "^1.44.0",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}

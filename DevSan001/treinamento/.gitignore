@@ -1,0 +1,7 @@
+logs/
+artifacts/
+data/*
+!data/README.md
+*.key
+*.pem
+*.env
